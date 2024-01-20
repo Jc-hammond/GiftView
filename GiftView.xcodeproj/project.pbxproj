@@ -1,0 +1,608 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		710ABDD82B22821A00DE83CD /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABDD72B22821A00DE83CD /* EditProfileViewModel.swift */; };
+		71331ECD2B527D510020A810 /* WishKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71331ECC2B527D510020A810 /* WishKitView.swift */; };
+		71331ED02B527DE20020A810 /* WishKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71331ECF2B527DE20020A810 /* WishKit */; };
+		71331ED32B527EC50020A810 /* MakeAWishTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71331ED22B527EC50020A810 /* MakeAWishTip.swift */; };
+		714766452B28FD7400D095DC /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714766442B28FD7400D095DC /* OnboardingView.swift */; };
+		714766472B29022B00D095DC /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714766462B29022B00D095DC /* OnboardingViewModel.swift */; };
+		714FEC752A899BD3009069B9 /* GiftViewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714FEC742A899BD3009069B9 /* GiftViewApp.swift */; };
+		714FEC772A899BD3009069B9 /* ProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714FEC762A899BD3009069B9 /* ProfilesView.swift */; };
+		714FEC7B2A899BD6009069B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 714FEC7A2A899BD6009069B9 /* Assets.xcassets */; };
+		714FEC7E2A899BD6009069B9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 714FEC7D2A899BD6009069B9 /* Preview Assets.xcassets */; };
+		714FEC862A899BFF009069B9 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714FEC852A899BFF009069B9 /* Profile.swift */; };
+		714FEC882A89A66A009069B9 /* Gift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714FEC872A89A66A009069B9 /* Gift.swift */; };
+		714FEC8F2A89A962009069B9 /* AddProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714FEC8E2A89A962009069B9 /* AddProfileView.swift */; };
+		714FEC932A8B03AF009069B9 /* ProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714FEC922A8B03AF009069B9 /* ProfileDetailView.swift */; };
+		714FEC962A8B047F009069B9 /* ProfileCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714FEC952A8B047F009069B9 /* ProfileCardView.swift */; };
+		714FEC982A8C26F8009069B9 /* AddGiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714FEC972A8C26F8009069B9 /* AddGiftView.swift */; };
+		714FEC9A2A8C2DA3009069B9 /* GiftCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714FEC992A8C2DA3009069B9 /* GiftCardView.swift */; };
+		714FEC9C2A8C30FA009069B9 /* GiftDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714FEC9B2A8C30FA009069B9 /* GiftDetailsView.swift */; };
+		714FEC9F2A93DA61009069B9 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714FEC9E2A93DA61009069B9 /* Date+Ext.swift */; };
+		714FECA22A93E28A009069B9 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714FECA12A93E28A009069B9 /* EditProfileView.swift */; };
+		715DDC172B1FECE900CCF081 /* ProfileDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715DDC162B1FECE900CCF081 /* ProfileDetailViewModel.swift */; };
+		715DDC192B227B1200CCF081 /* AddProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715DDC182B227B1200CCF081 /* AddProfileViewModel.swift */; };
+		716ACE182B59DD4800583200 /* RequestReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716ACE172B59DD4800583200 /* RequestReviewManager.swift */; };
+		716D6E372B4B9168000B554F /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716D6E362B4B9168000B554F /* NotificationsManager.swift */; };
+		716D6E392B4B993E000B554F /* GVTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716D6E382B4B993E000B554F /* GVTextField.swift */; };
+		716D6E3B2B4BA034000B554F /* GVPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716D6E3A2B4BA034000B554F /* GVPhotoPicker.swift */; };
+		716D6E3D2B4BA31F000B554F /* GVDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716D6E3C2B4BA31F000B554F /* GVDatePicker.swift */; };
+		716D6E3F2B4BA63E000B554F /* GVErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716D6E3E2B4BA63E000B554F /* GVErrorMessage.swift */; };
+		716D6E412B4BA6F9000B554F /* GVPrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716D6E402B4BA6F9000B554F /* GVPrimaryButton.swift */; };
+		717C60342AE1D24C00CA7757 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717C60332AE1D24C00CA7757 /* SearchBar.swift */; };
+		717C60372AEF28E600CA7757 /* ContactPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717C60362AEF28E600CA7757 /* ContactPicker.swift */; };
+		71966FE62B5242A30062D244 /* ProfilesGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71966FE52B5242A30062D244 /* ProfilesGridView.swift */; };
+		71DEBCED2B092745003BB0AF /* AddProfileModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DEBCEC2B092745003BB0AF /* AddProfileModalViewModel.swift */; };
+		71EF28632AF9B512004C2DF7 /* AddProfileModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EF28622AF9B512004C2DF7 /* AddProfileModalView.swift */; };
+		71EF28652B056DB0004C2DF7 /* ProfilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EF28642B056DB0004C2DF7 /* ProfilesViewModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		710ABDD72B22821A00DE83CD /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		71331ECC2B527D510020A810 /* WishKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishKitView.swift; sourceTree = "<group>"; };
+		71331ED22B527EC50020A810 /* MakeAWishTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeAWishTip.swift; sourceTree = "<group>"; };
+		714766442B28FD7400D095DC /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		714766462B29022B00D095DC /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		714FEC712A899BD3009069B9 /* GiftView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GiftView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		714FEC742A899BD3009069B9 /* GiftViewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftViewApp.swift; sourceTree = "<group>"; };
+		714FEC762A899BD3009069B9 /* ProfilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesView.swift; sourceTree = "<group>"; };
+		714FEC7A2A899BD6009069B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		714FEC7D2A899BD6009069B9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		714FEC852A899BFF009069B9 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		714FEC872A89A66A009069B9 /* Gift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gift.swift; sourceTree = "<group>"; };
+		714FEC8E2A89A962009069B9 /* AddProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileView.swift; sourceTree = "<group>"; };
+		714FEC922A8B03AF009069B9 /* ProfileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailView.swift; sourceTree = "<group>"; };
+		714FEC952A8B047F009069B9 /* ProfileCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardView.swift; sourceTree = "<group>"; };
+		714FEC972A8C26F8009069B9 /* AddGiftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGiftView.swift; sourceTree = "<group>"; };
+		714FEC992A8C2DA3009069B9 /* GiftCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftCardView.swift; sourceTree = "<group>"; };
+		714FEC9B2A8C30FA009069B9 /* GiftDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftDetailsView.swift; sourceTree = "<group>"; };
+		714FEC9E2A93DA61009069B9 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		714FECA12A93E28A009069B9 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		715DDC162B1FECE900CCF081 /* ProfileDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewModel.swift; sourceTree = "<group>"; };
+		715DDC182B227B1200CCF081 /* AddProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileViewModel.swift; sourceTree = "<group>"; };
+		716ACE172B59DD4800583200 /* RequestReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReviewManager.swift; sourceTree = "<group>"; };
+		716D6E362B4B9168000B554F /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
+		716D6E382B4B993E000B554F /* GVTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GVTextField.swift; sourceTree = "<group>"; };
+		716D6E3A2B4BA034000B554F /* GVPhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GVPhotoPicker.swift; sourceTree = "<group>"; };
+		716D6E3C2B4BA31F000B554F /* GVDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GVDatePicker.swift; sourceTree = "<group>"; };
+		716D6E3E2B4BA63E000B554F /* GVErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GVErrorMessage.swift; sourceTree = "<group>"; };
+		716D6E402B4BA6F9000B554F /* GVPrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GVPrimaryButton.swift; sourceTree = "<group>"; };
+		717C60332AE1D24C00CA7757 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		717C60352AEB01A900CA7757 /* GiftView.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GiftView.entitlements; sourceTree = "<group>"; };
+		717C60362AEF28E600CA7757 /* ContactPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPicker.swift; sourceTree = "<group>"; };
+		717C603A2AF557BD00CA7757 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		71966FE52B5242A30062D244 /* ProfilesGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesGridView.swift; sourceTree = "<group>"; };
+		71DEBCEC2B092745003BB0AF /* AddProfileModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileModalViewModel.swift; sourceTree = "<group>"; };
+		71EF28622AF9B512004C2DF7 /* AddProfileModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileModalView.swift; sourceTree = "<group>"; };
+		71EF28642B056DB0004C2DF7 /* ProfilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		714FEC6E2A899BD3009069B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71331ED02B527DE20020A810 /* WishKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		710ABDD22B2281CE00DE83CD /* ProfilesView */ = {
+			isa = PBXGroup;
+			children = (
+				714FEC762A899BD3009069B9 /* ProfilesView.swift */,
+				71EF28642B056DB0004C2DF7 /* ProfilesViewModel.swift */,
+				71966FE52B5242A30062D244 /* ProfilesGridView.swift */,
+			);
+			path = ProfilesView;
+			sourceTree = "<group>";
+		};
+		710ABDD32B2281DE00DE83CD /* AddProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				714FEC8E2A89A962009069B9 /* AddProfileView.swift */,
+				715DDC182B227B1200CCF081 /* AddProfileViewModel.swift */,
+			);
+			path = AddProfileView;
+			sourceTree = "<group>";
+		};
+		710ABDD42B2281EA00DE83CD /* AddProfileModelView */ = {
+			isa = PBXGroup;
+			children = (
+				71EF28622AF9B512004C2DF7 /* AddProfileModalView.swift */,
+				71DEBCEC2B092745003BB0AF /* AddProfileModalViewModel.swift */,
+			);
+			path = AddProfileModelView;
+			sourceTree = "<group>";
+		};
+		710ABDD52B2281F600DE83CD /* ProfileDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				714FEC922A8B03AF009069B9 /* ProfileDetailView.swift */,
+				715DDC162B1FECE900CCF081 /* ProfileDetailViewModel.swift */,
+			);
+			path = ProfileDetailView;
+			sourceTree = "<group>";
+		};
+		710ABDD62B22820400DE83CD /* EditProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				714FECA12A93E28A009069B9 /* EditProfileView.swift */,
+				710ABDD72B22821A00DE83CD /* EditProfileViewModel.swift */,
+			);
+			path = EditProfileView;
+			sourceTree = "<group>";
+		};
+		71331ED12B527EB60020A810 /* Tips */ = {
+			isa = PBXGroup;
+			children = (
+				71331ED22B527EC50020A810 /* MakeAWishTip.swift */,
+			);
+			path = Tips;
+			sourceTree = "<group>";
+		};
+		714766432B28FD6900D095DC /* OnboardingView */ = {
+			isa = PBXGroup;
+			children = (
+				714766442B28FD7400D095DC /* OnboardingView.swift */,
+				714766462B29022B00D095DC /* OnboardingViewModel.swift */,
+			);
+			path = OnboardingView;
+			sourceTree = "<group>";
+		};
+		714FEC682A899BD3009069B9 = {
+			isa = PBXGroup;
+			children = (
+				714FEC732A899BD3009069B9 /* GiftView */,
+				714FEC722A899BD3009069B9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		714FEC722A899BD3009069B9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				714FEC712A899BD3009069B9 /* GiftView.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		714FEC732A899BD3009069B9 /* GiftView */ = {
+			isa = PBXGroup;
+			children = (
+				71331ED12B527EB60020A810 /* Tips */,
+				716D6E352B4B9151000B554F /* Managers */,
+				717C603A2AF557BD00CA7757 /* Info.plist */,
+				717C60352AEB01A900CA7757 /* GiftView.entitlements */,
+				714FEC9D2A93DA57009069B9 /* Extentions */,
+				714FEC942A8B0465009069B9 /* CustomViews */,
+				714FEC892A89A905009069B9 /* Screens */,
+				714FEC842A899BEC009069B9 /* Models */,
+				714FEC742A899BD3009069B9 /* GiftViewApp.swift */,
+				714FEC7A2A899BD6009069B9 /* Assets.xcassets */,
+				714FEC7C2A899BD6009069B9 /* Preview Content */,
+			);
+			path = GiftView;
+			sourceTree = "<group>";
+		};
+		714FEC7C2A899BD6009069B9 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				714FEC7D2A899BD6009069B9 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		714FEC842A899BEC009069B9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				714FEC852A899BFF009069B9 /* Profile.swift */,
+				714FEC872A89A66A009069B9 /* Gift.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		714FEC892A89A905009069B9 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				714766432B28FD6900D095DC /* OnboardingView */,
+				710ABDD62B22820400DE83CD /* EditProfileView */,
+				710ABDD32B2281DE00DE83CD /* AddProfileView */,
+				710ABDD22B2281CE00DE83CD /* ProfilesView */,
+				710ABDD52B2281F600DE83CD /* ProfileDetailView */,
+				714FEC972A8C26F8009069B9 /* AddGiftView.swift */,
+				714FEC9B2A8C30FA009069B9 /* GiftDetailsView.swift */,
+				710ABDD42B2281EA00DE83CD /* AddProfileModelView */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		714FEC942A8B0465009069B9 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				714FEC952A8B047F009069B9 /* ProfileCardView.swift */,
+				714FEC992A8C2DA3009069B9 /* GiftCardView.swift */,
+				717C60332AE1D24C00CA7757 /* SearchBar.swift */,
+				717C60362AEF28E600CA7757 /* ContactPicker.swift */,
+				716D6E382B4B993E000B554F /* GVTextField.swift */,
+				716D6E3A2B4BA034000B554F /* GVPhotoPicker.swift */,
+				716D6E3C2B4BA31F000B554F /* GVDatePicker.swift */,
+				716D6E3E2B4BA63E000B554F /* GVErrorMessage.swift */,
+				716D6E402B4BA6F9000B554F /* GVPrimaryButton.swift */,
+				71331ECC2B527D510020A810 /* WishKitView.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		714FEC9D2A93DA57009069B9 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				714FEC9E2A93DA61009069B9 /* Date+Ext.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
+		716D6E352B4B9151000B554F /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				716D6E362B4B9168000B554F /* NotificationsManager.swift */,
+				716ACE172B59DD4800583200 /* RequestReviewManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		714FEC702A899BD3009069B9 /* GiftView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 714FEC812A899BD6009069B9 /* Build configuration list for PBXNativeTarget "GiftView" */;
+			buildPhases = (
+				714FEC6D2A899BD3009069B9 /* Sources */,
+				714FEC6E2A899BD3009069B9 /* Frameworks */,
+				714FEC6F2A899BD3009069B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GiftView;
+			packageProductDependencies = (
+				71331ECF2B527DE20020A810 /* WishKit */,
+			);
+			productName = GiftView;
+			productReference = 714FEC712A899BD3009069B9 /* GiftView.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		714FEC692A899BD3009069B9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					714FEC702A899BD3009069B9 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 714FEC6C2A899BD3009069B9 /* Build configuration list for PBXProject "GiftView" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 714FEC682A899BD3009069B9;
+			packageReferences = (
+				71331ECE2B527DE20020A810 /* XCRemoteSwiftPackageReference "wishkit-ios" */,
+			);
+			productRefGroup = 714FEC722A899BD3009069B9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				714FEC702A899BD3009069B9 /* GiftView */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		714FEC6F2A899BD3009069B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				714FEC7E2A899BD6009069B9 /* Preview Assets.xcassets in Resources */,
+				714FEC7B2A899BD6009069B9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		714FEC6D2A899BD3009069B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				717C60342AE1D24C00CA7757 /* SearchBar.swift in Sources */,
+				716D6E412B4BA6F9000B554F /* GVPrimaryButton.swift in Sources */,
+				714FEC772A899BD3009069B9 /* ProfilesView.swift in Sources */,
+				716D6E372B4B9168000B554F /* NotificationsManager.swift in Sources */,
+				71331ECD2B527D510020A810 /* WishKitView.swift in Sources */,
+				716D6E3B2B4BA034000B554F /* GVPhotoPicker.swift in Sources */,
+				71EF28652B056DB0004C2DF7 /* ProfilesViewModel.swift in Sources */,
+				717C60372AEF28E600CA7757 /* ContactPicker.swift in Sources */,
+				714FEC8F2A89A962009069B9 /* AddProfileView.swift in Sources */,
+				714FEC982A8C26F8009069B9 /* AddGiftView.swift in Sources */,
+				716D6E392B4B993E000B554F /* GVTextField.swift in Sources */,
+				716ACE182B59DD4800583200 /* RequestReviewManager.swift in Sources */,
+				714766452B28FD7400D095DC /* OnboardingView.swift in Sources */,
+				714FEC9C2A8C30FA009069B9 /* GiftDetailsView.swift in Sources */,
+				716D6E3F2B4BA63E000B554F /* GVErrorMessage.swift in Sources */,
+				714766452B28FD7400D095DC /* OnboardingView.swift in Sources */,
+				714FEC9C2A8C30FA009069B9 /* GiftDetailsView.swift in Sources */,
+				714FEC962A8B047F009069B9 /* ProfileCardView.swift in Sources */,
+				715DDC192B227B1200CCF081 /* AddProfileViewModel.swift in Sources */,
+				714FEC882A89A66A009069B9 /* Gift.swift in Sources */,
+				715DDC172B1FECE900CCF081 /* ProfileDetailViewModel.swift in Sources */,
+				71EF28632AF9B512004C2DF7 /* AddProfileModalView.swift in Sources */,
+				710ABDD82B22821A00DE83CD /* EditProfileViewModel.swift in Sources */,
+				71331ED32B527EC50020A810 /* MakeAWishTip.swift in Sources */,
+				714FECA22A93E28A009069B9 /* EditProfileView.swift in Sources */,
+				714FEC9F2A93DA61009069B9 /* Date+Ext.swift in Sources */,
+				714FEC862A899BFF009069B9 /* Profile.swift in Sources */,
+				714FEC9A2A8C2DA3009069B9 /* GiftCardView.swift in Sources */,
+				71966FE62B5242A30062D244 /* ProfilesGridView.swift in Sources */,
+				714FEC752A899BD3009069B9 /* GiftViewApp.swift in Sources */,
+				716D6E3D2B4BA31F000B554F /* GVDatePicker.swift in Sources */,
+				714766472B29022B00D095DC /* OnboardingViewModel.swift in Sources */,
+				71DEBCED2B092745003BB0AF /* AddProfileModalViewModel.swift in Sources */,
+				714FEC932A8B03AF009069B9 /* ProfileDetailView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		714FEC7F2A899BD6009069B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		714FEC802A899BD6009069B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		714FEC822A899BD6009069B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GiftView/GiftView.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"GiftView/Preview Content\"";
+				DEVELOPMENT_TEAM = UF94N945G8;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GiftView/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSContactsUsageDescription = "Allow GiftView to have access to your contacts so it's easy import your friends and family.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.0.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ConnorHammond.GiftView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		714FEC832A899BD6009069B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GiftView/GiftView.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"GiftView/Preview Content\"";
+				DEVELOPMENT_TEAM = UF94N945G8;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GiftView/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSContactsUsageDescription = "Allow GiftView to have access to your contacts so it's easy import your friends and family.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.0.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ConnorHammond.GiftView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		714FEC6C2A899BD3009069B9 /* Build configuration list for PBXProject "GiftView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				714FEC7F2A899BD6009069B9 /* Debug */,
+				714FEC802A899BD6009069B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		714FEC812A899BD6009069B9 /* Build configuration list for PBXNativeTarget "GiftView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				714FEC822A899BD6009069B9 /* Debug */,
+				714FEC832A899BD6009069B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		71331ECE2B527DE20020A810 /* XCRemoteSwiftPackageReference "wishkit-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wishkit/wishkit-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		71331ECF2B527DE20020A810 /* WishKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71331ECE2B527DE20020A810 /* XCRemoteSwiftPackageReference "wishkit-ios" */;
+			productName = WishKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 714FEC692A899BD3009069B9 /* Project object */;
+}
