@@ -16,6 +16,16 @@ final class Profile: ObservableObject, Identifiable {
     @Attribute(.externalStorage) var avatar: Data?
     var hasNotifications: Bool = false
     
+    var formattedName: String {
+            guard let spaceIndex = name.firstIndex(of: " ") else { return name }
+            
+            var modifiedName = name
+            modifiedName.remove(at: spaceIndex)
+            modifiedName.insert("\n", at: spaceIndex)
+            
+            return modifiedName
+        }
+    
     init(name: String, birthdate: Date, avatar: Data? = nil, gifts: [Gift] = [], hasNotifications: Bool = false ){
         self.id = UUID()
         self.name = name

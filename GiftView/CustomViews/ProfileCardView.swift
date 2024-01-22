@@ -52,7 +52,7 @@ struct ProfileCardView: View {
                     
                     VStack(alignment: .leading) {
                         Spacer()
-                        Text(profile.name)
+                        Text(profile.formattedName)
                             .font(.system(size: 16))
                             .fontDesign(.rounded)
                             .fontWeight(.semibold)
