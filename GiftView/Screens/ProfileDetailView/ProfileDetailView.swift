@@ -44,26 +44,12 @@ struct ProfileDetailView: View {
                             .fontDesign(.rounded)
                             .bold()
                         
-                        Text(profile.birthdate, format: Date.FormatStyle(date: .abbreviated))
-                            .font(.title2)
-                            .foregroundStyle(.textBlue)
-                            .fontDesign(.rounded)
-                            .fontWeight(.semibold)
-                        
-                    }
-                    .padding(.leading, 15)
-                }
-                
-                VStack {
-                    Group {
                         HStack(alignment: .center) {
-                            Text("Gift Ideas")
-                                .font(.title)
+                            Text(profile.birthdate, format: Date.FormatStyle(date: .abbreviated))
+                                .font(.title2)
                                 .foregroundStyle(.textBlue)
                                 .fontDesign(.rounded)
                                 .fontWeight(.semibold)
-                                .padding(.leading, 15)
-                                .padding(.top, 5)
                             
                             Button {
                                 viewModel.toggleNotifications(for: profile)
@@ -72,7 +58,6 @@ struct ProfileDetailView: View {
                                     .resizable()
                                     .frame(width: 18, height: 18)
                                     .foregroundStyle(.buttonBlue)
-                                    .padding(.top, 10)
                             }
                             .alert(isPresented: $viewModel.isNotificationsAlertShowing) {
                                 Alert(
@@ -87,7 +72,23 @@ struct ProfileDetailView: View {
                                     )
                                 )
                             }
-                            
+                        }
+                        .padding(.leading, 10)
+                        
+                    }
+                }
+                
+                VStack {
+                    Group {
+                        HStack(alignment: .center) {
+                            Text("Gift Ideas")
+                                .font(.title)
+                                .foregroundStyle(.textBlue)
+                                .fontDesign(.rounded)
+                                .fontWeight(.semibold)
+                                .padding(.leading, 15)
+                                .padding(.top, 5)
+                                                        
                             Spacer()
                         }
                         
