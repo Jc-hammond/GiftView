@@ -49,7 +49,7 @@ struct ProfileDetailView: View {
                             .foregroundStyle(.textBlue)
                             .fontDesign(.rounded)
                             .fontWeight(.semibold)
-                                                
+                        
                     }
                     .padding(.leading, 15)
                 }
@@ -141,26 +141,26 @@ struct ProfileDetailView: View {
                                             }
                                         }
                                         
-                                        Button {
-                                            viewModel.isAddGiftShowing = true
-                                        } label: {
-                                            ZStack {
-                                                RoundedRectangle(cornerRadius: 15)
-                                                    .fill(.buttonBlue)
-                                                    .frame(width: 110, height: 110)
-                                                
-                                                VStack {
-                                                    Image(systemName: "plus")
-                                                        .tint(.white)
-                                                        .fontWeight(.semibold)
-                                                    Text("Add gift")
-                                                        .fontWeight(.semibold)
-                                                        .fontDesign(.rounded)
-                                                        .tint(.white)
-                                                        .padding(.top, 10)
-                                                }
-                                            }
-                                        }
+                                        //                                        Button {
+                                        //                                            viewModel.isAddGiftShowing = true
+                                        //                                        } label: {
+                                        //                                            ZStack {
+                                        //                                                RoundedRectangle(cornerRadius: 15)
+                                        //                                                    .fill(.buttonBlue)
+                                        //                                                    .frame(width: 110, height: 110)
+                                        //
+                                        //                                                VStack {
+                                        //                                                    Image(systemName: "plus")
+                                        //                                                        .tint(.white)
+                                        //                                                        .fontWeight(.semibold)
+                                        //                                                    Text("Add gift")
+                                        //                                                        .fontWeight(.semibold)
+                                        //                                                        .fontDesign(.rounded)
+                                        //                                                        .tint(.white)
+                                        //                                                        .padding(.top, 10)
+                                        //                                                }
+                                        //                                            }
+                                        //                                        }
                                     }
                                     .padding(.horizontal, 10)
                                 }
@@ -184,9 +184,10 @@ struct ProfileDetailView: View {
                                                     gift.isPurchased.toggle()
                                                 } label: {
                                                     Image(systemName: gift.isPurchased ? "checkmark.circle.fill" : "checkmark.circle")
-                                                        .tint(Color.white)
+                                                        .foregroundStyle(Color.textBlue)
                                                 }
                                             }
+                                            .listRowBackground(Color.textFieldBackground)
                                         }
                                     }
                                     
@@ -201,9 +202,10 @@ struct ProfileDetailView: View {
                                                     gift.isPurchased.toggle()
                                                 } label: {
                                                     Image(systemName: gift.isPurchased ? "checkmark.circle.fill" : "checkmark.circle")
-                                                        .tint(Color.white)
+                                                        .foregroundStyle(Color.textBlue)
                                                 }
                                             }
+                                            .listRowBackground(Color.textFieldBackground)
                                         }
                                     }
                                 }
@@ -240,7 +242,6 @@ struct ProfileDetailView: View {
                         Image(systemName: "plus")
                     }
                 }
-                
             }
             .navigationBarTitleDisplayMode(.inline)
         }
