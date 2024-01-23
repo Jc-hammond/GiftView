@@ -1,21 +1,18 @@
 //
-//  AddProfileView.swift
+//  CreateMyProfileView.swift
 //  GiftView
 //
-//  Created by Connor Hammond on 8/13/23.
+//  Created by Connor Hammond on 1/22/24.
 //
 
 import SwiftUI
-import SwiftData
-import PhotosUI
-import Contacts
 
-struct AddProfileView: View {
+struct CreateMyProfileView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
     
-    @StateObject private var viewModel = AddProfileViewModel()
-        
+    @StateObject var viewModel = CreateMyProfileViewModel()
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -56,10 +53,11 @@ struct AddProfileView: View {
                             viewModel.datePickerId += 1
                         })
                         
-                        GVPrimaryButton(buttonAction: {viewModel.addNewProfile(name: viewModel.name,
-                                                                               birthdate: viewModel.birthdate,
-                                                                               avatar: viewModel.avatarData,
-                                                                               modelContext: modelContext)},
+                        GVPrimaryButton(buttonAction: {
+                            viewModel.addNewProfile(name: viewModel.name,
+                                                    birthdate: viewModel.birthdate,
+                                                    avatar: viewModel.avatarData,
+                                                    modelContext: modelContext)},
                                         title: "Add Profile",
                                         imageString: "plus.circle",
                                         isDisabled: viewModel.formIsBlank,
@@ -75,35 +73,38 @@ struct AddProfileView: View {
                     Spacer()
                 }
                 
-            }.navigationBarTitleDisplayMode(.inline)
-            
-                .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button {
-                            viewModel.resetForm()
-                            dismiss()
-                        } label: {
-                            Text("Cancel")
-                                .foregroundStyle(.buttonBlue)
-                                .fontDesign(.rounded)
-                                .bold()
-                        }
-                    }
-                }
-            
-                .onDisappear(perform: {
-                    if viewModel.formIsBlank {
-                        return
-                    } else {
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
                         viewModel.resetForm()
-                        
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                            .foregroundStyle(.buttonBlue)
+                            .fontDesign(.rounded)
+                            .bold()
                     }
-                })
-                .task(id: viewModel.selectedAvatar) {
-                    await viewModel.convertPhotoToData()
                 }
+            }
+            
+            .onDisappear(perform: {
+                if viewModel.formIsBlank {
+                    return
+                } else {
+                    viewModel.resetForm()
+                    
+                }
+            })
+            .task(id: viewModel.selectedAvatar) {
+                await viewModel.convertPhotoToData()
+            }
         }
         .navigationBarBackButtonHidden()
     }
-        
+}
+
+#Preview {
+    CreateMyProfileView()
 }

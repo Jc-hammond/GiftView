@@ -6,15 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SettingsView: View {
     @State private var notificationsOn = false
     @StateObject var viewModel = SettingsViewModel()
     @FocusState private var focusedField: Field?
-    
+
     enum Field: Hashable {
-           case myField
-       }
+        case myField
+    }
     
     var body: some View {
         ZStack {
@@ -62,11 +63,5 @@ struct SettingsView: View {
                 }
             }
         }
-    }
-}
-
-#Preview {
-    NavigationStack {
-        SettingsView()
     }
 }

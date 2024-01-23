@@ -1,8 +1,8 @@
 //
-//  AddProfileViewModel.swift
+//  CreateMyProfileViewModel.swift
 //  GiftView
 //
-//  Created by Connor Hammond on 12/7/23.
+//  Created by Connor Hammond on 1/22/24.
 //
 
 import Foundation
@@ -10,7 +10,9 @@ import PhotosUI
 import SwiftUI
 import SwiftData
 
-class AddProfileViewModel: ObservableObject {
+class CreateMyProfileViewModel: ObservableObject {
+    @AppStorage("firstProfileVisit") var firstVisit: Bool = true
+    
     @Published var name: String = ""
     @Published var birthdate: Date = .now
     @Published var selectedAvatar: PhotosPickerItem?
@@ -55,22 +57,23 @@ class AddProfileViewModel: ObservableObject {
         handleErrors()
     }
     
+    //MARK: ----- CRUD -----
     func addNewProfile(name: String, birthdate: Date, avatar: Data?, modelContext: ModelContext) {
-        let newProfile = Profile(name: name, birthdate: birthdate)
+        let newProfile = MyProfile(name: name, birthdate: birthdate)
         
         if let newAvatar = avatar {
             newProfile.avatar = newAvatar
         }
         
         handleErrors()
-        
-        NotificationsManager.shared.checkForNotificationPermissions(update: newProfile)
-        
+                
         modelContext.insert(newProfile)
         
-        NotificationsManager.shared.scheduleBirthdayNotification(for: newProfile)
-        
-        newProfile.hasNotifications = true
+        completeFirstVisit()
+    }
+    
+    func completeFirstVisit() {
+        firstVisit = false
     }
     
     func handleErrors() {

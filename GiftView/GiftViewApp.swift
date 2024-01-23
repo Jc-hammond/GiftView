@@ -29,7 +29,7 @@ struct GiftViewApp: App {
                 ProfilesView()
             }
         }
-        .modelContainer(for: [Profile.self, Gift.self])
+        .modelContainer(for: [Profile.self, Gift.self, MyProfile.self])
         .environmentObject(reviewsManager)
     }
 }

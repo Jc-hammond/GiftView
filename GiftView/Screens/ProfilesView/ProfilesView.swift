@@ -20,7 +20,9 @@ struct ProfilesView: View {
     @EnvironmentObject private var reviewManager: RequestReviewManager
     @Environment(\.modelContext) private var modelContext
     @Environment(\.requestReview) private var requestReview
+    @AppStorage("firstProfileVisit") var firstVisit: Bool = true
     @Query private var profiles: [Profile]
+    @Query private var myProfiles: [MyProfile]
     
     @StateObject private var viewModel = ProfilesViewModel()
     
@@ -135,28 +137,50 @@ struct ProfilesView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    NavigationLink {
-                        SettingsView()
-                    } label: {
-                        Image(systemName: "gear")
-                            .foregroundStyle(.buttonBlue)
-                    }                    
-                }
-                
-                if !profiles.isEmpty {
+                if !myProfiles.isEmpty {
+                    let myProfile = myProfiles[0]
                     ToolbarItem(placement: .cancellationAction) {
-                        Button {
-                            isEditable.toggle()
+                        NavigationLink {
+                            MyProfileView(myProfile: myProfile)
                         } label: {
-                            Text(isEditable ? "Done" : "Edit")
-                                .fontDesign(.rounded)
-                                .bold()
-                                .foregroundStyle(.buttonBlue)
-                                .opacity(viewModel.isDeleteModalShowing ? 0.4 : 1)
+                            if let avatar = myProfile.avatar {
+                                let uiImage = UIImage(data: avatar)
+                                Image(uiImage: uiImage!)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 40, height: 40)
+                                    .clipShape(Circle())
+                            } else {
+                                Image(systemName: "person.circle.fill")
+                            }
+                        }
+                    }
+                } else {
+                    ToolbarItem(placement: .cancellationAction) {
+                        NavigationLink {
+                            CreateMyProfileView()
+                        } label: {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .frame(width: 40, height: 40)
                         }
                     }
                 }
+                
+                //TODO: implement edit via onLongPress and add Wiggle animation
+//                if !profiles.isEmpty {
+//                    ToolbarItem(placement: .cancellationAction) {
+//                        Button {
+//                            isEditable.toggle()
+//                        } label: {
+//                            Text(isEditable ? "Done" : "Edit")
+//                                .fontDesign(.rounded)
+//                                .bold()
+//                                .foregroundStyle(.buttonBlue)
+//                                .opacity(viewModel.isDeleteModalShowing ? 0.4 : 1)
+//                        }
+//                    }
+//                }
                 
                 
                 ToolbarItem(placement: .principal) {

@@ -88,7 +88,7 @@ struct ProfileDetailView: View {
                                 .fontWeight(.semibold)
                                 .padding(.leading, 15)
                                 .padding(.top, 5)
-                                                        
+                            
                             Spacer()
                         }
                         
@@ -126,44 +126,13 @@ struct ProfileDetailView: View {
                         
                         if viewModel.isShowingImageList == "images" {
                             
-                            
                             if gifts.count < 1 {
                                 ContentUnavailableView {
                                     Label("Add gifts to get started", systemImage: "plus.circle")
                                 }
                             } else {
-                                ScrollView {
-                                    LazyVGrid(columns: gridItems, spacing: 8) {
-                                        ForEach(gifts.sorted(by: { $0.title < $1.title }), id: \.self) { gift in
-                                            Button {
-                                                viewModel.selectedGift = gift
-                                            } label: {
-                                                GiftCardView(gift: gift)
-                                            }
-                                        }
-                                        
-                                        //                                        Button {
-                                        //                                            viewModel.isAddGiftShowing = true
-                                        //                                        } label: {
-                                        //                                            ZStack {
-                                        //                                                RoundedRectangle(cornerRadius: 15)
-                                        //                                                    .fill(.buttonBlue)
-                                        //                                                    .frame(width: 110, height: 110)
-                                        //
-                                        //                                                VStack {
-                                        //                                                    Image(systemName: "plus")
-                                        //                                                        .tint(.white)
-                                        //                                                        .fontWeight(.semibold)
-                                        //                                                    Text("Add gift")
-                                        //                                                        .fontWeight(.semibold)
-                                        //                                                        .fontDesign(.rounded)
-                                        //                                                        .tint(.white)
-                                        //                                                        .padding(.top, 10)
-                                        //                                                }
-                                        //                                            }
-                                        //                                        }
-                                    }
-                                    .padding(.horizontal, 10)
+                                GiftsGridView(gifts: gifts) { gift in
+                                    viewModel.selectedGift = gift
                                 }
                             }
                             
@@ -173,44 +142,7 @@ struct ProfileDetailView: View {
                                     Label("Add gifts to get started", systemImage: "plus.circle")
                                 }
                             } else {
-                                List {
-                                    Section(header: Text("Not Purchased")) {
-                                        ForEach(gifts.filter { !$0.isPurchased }, id: \.title) { gift in
-                                            HStack {
-                                                Text(gift.title)
-                                                    .foregroundStyle(.textBlue)
-                                                    .fontDesign(.rounded)
-                                                Spacer()
-                                                Button {
-                                                    gift.isPurchased.toggle()
-                                                } label: {
-                                                    Image(systemName: gift.isPurchased ? "checkmark.circle.fill" : "checkmark.circle")
-                                                        .foregroundStyle(Color.textBlue)
-                                                }
-                                            }
-                                            .listRowBackground(Color.textFieldBackground)
-                                        }
-                                    }
-                                    
-                                    Section(header: Text("Purchased")) {
-                                        ForEach(gifts.filter { $0.isPurchased }, id: \.title) { gift in
-                                            HStack {
-                                                Text(gift.title)
-                                                    .foregroundStyle(.textBlue)
-                                                    .fontDesign(.rounded)
-                                                Spacer()
-                                                Button {
-                                                    gift.isPurchased.toggle()
-                                                } label: {
-                                                    Image(systemName: gift.isPurchased ? "checkmark.circle.fill" : "checkmark.circle")
-                                                        .foregroundStyle(Color.textBlue)
-                                                }
-                                            }
-                                            .listRowBackground(Color.textFieldBackground)
-                                        }
-                                    }
-                                }
-                                .listStyle(.plain)
+                                GiftsChecklistView(gifts: gifts)
                                 
                                 Spacer()
                             }
