@@ -71,7 +71,7 @@ struct ProfilesView: View {
                     }
                     
                     Spacer()
-                                        
+                    
                     SearchBar(text: $searchText)
                         .background {
                             RoundedRectangle(cornerRadius: 0)
@@ -135,6 +135,15 @@ struct ProfilesView: View {
                 }
             }
             .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    NavigationLink {
+                        SettingsView()
+                    } label: {
+                        Image(systemName: "gear")
+                            .foregroundStyle(.buttonBlue)
+                    }                    
+                }
+                
                 if !profiles.isEmpty {
                     ToolbarItem(placement: .cancellationAction) {
                         Button {

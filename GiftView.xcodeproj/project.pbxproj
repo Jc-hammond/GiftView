@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7105D3AE2B5F680C0007095F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105D3AD2B5F680C0007095F /* SettingsView.swift */; };
+		7105D3B02B5F710C0007095F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105D3AF2B5F710C0007095F /* SettingsViewModel.swift */; };
 		710ABDD82B22821A00DE83CD /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABDD72B22821A00DE83CD /* EditProfileViewModel.swift */; };
 		71331ECD2B527D510020A810 /* WishKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71331ECC2B527D510020A810 /* WishKitView.swift */; };
 		71331ED02B527DE20020A810 /* WishKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71331ECF2B527DE20020A810 /* WishKit */; };
@@ -45,6 +47,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7105D3AD2B5F680C0007095F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7105D3AF2B5F710C0007095F /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		710ABDD72B22821A00DE83CD /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		71331ECC2B527D510020A810 /* WishKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishKitView.swift; sourceTree = "<group>"; };
 		71331ED22B527EC50020A810 /* MakeAWishTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeAWishTip.swift; sourceTree = "<group>"; };
@@ -96,6 +100,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7105D3AC2B5F67FE0007095F /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				7105D3AD2B5F680C0007095F /* SettingsView.swift */,
+				7105D3AF2B5F710C0007095F /* SettingsViewModel.swift */,
+			);
+			path = SettingsView;
+			sourceTree = "<group>";
+		};
 		710ABDD22B2281CE00DE83CD /* ProfilesView */ = {
 			isa = PBXGroup;
 			children = (
@@ -213,6 +226,7 @@
 		714FEC892A89A905009069B9 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				7105D3AC2B5F67FE0007095F /* SettingsView */,
 				714766432B28FD6900D095DC /* OnboardingView */,
 				710ABDD62B22820400DE83CD /* EditProfileView */,
 				710ABDD32B2281DE00DE83CD /* AddProfileView */,
@@ -335,6 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7105D3AE2B5F680C0007095F /* SettingsView.swift in Sources */,
 				717C60342AE1D24C00CA7757 /* SearchBar.swift in Sources */,
 				716D6E412B4BA6F9000B554F /* GVPrimaryButton.swift in Sources */,
 				714FEC772A899BD3009069B9 /* ProfilesView.swift in Sources */,
@@ -369,6 +384,7 @@
 				714766472B29022B00D095DC /* OnboardingViewModel.swift in Sources */,
 				71DEBCED2B092745003BB0AF /* AddProfileModalViewModel.swift in Sources */,
 				714FEC932A8B03AF009069B9 /* ProfileDetailView.swift in Sources */,
+				7105D3B02B5F710C0007095F /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
