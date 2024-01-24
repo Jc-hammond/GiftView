@@ -30,17 +30,17 @@ class SettingsViewModel: ObservableObject {
         }
     }
     
-//    func onSubmitNewDays() {
-//        if daysBeforeReminder == 0 {
-//            daysBeforeReminder = 30
-//        }
-//        
-//        NotificationsManager.shared.updateScheduledNotificationsDaysBefore(newDaysBefore: daysBeforeReminder, check: profiles)
-//        
-//        DispatchQueue.main.async {
-//            self.showAlert = true
-//        }
-//    }
+    func onSubmitNewDays() {
+        if daysBeforeReminder == 0 {
+            daysBeforeReminder = 30
+        }
+        
+        NotificationsManager.shared.updateScheduledNotificationsDaysBefore(newDaysBefore: daysBeforeReminder)
+        
+        DispatchQueue.main.async {
+            self.showAlert = true
+        }
+    }
 }
 
 struct DismissingKeyboard: ViewModifier {

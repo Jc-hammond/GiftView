@@ -43,16 +43,20 @@ class NotificationsManager {
 
     //MARK: -- Notification Scheduling
     func scheduleBirthdayNotification(for profile: Profile) {
-//        let daysBefore = UserDefaults.standard.integer(forKey: "daysBeforeReminder")
+        let daysBefore = UserDefaults.standard.integer(forKey: "daysBeforeReminder")
         let calendar = Calendar.current
         //TODO: Allow custom days before in value
-        guard let notificationDate = calendar.date(byAdding: .day, value: -7, to: profile.birthdate) else { return }
+        guard let notificationDate = calendar.date(byAdding: .day, value: -daysBefore, to: profile.birthdate) else { return }
         
         let content = UNMutableNotificationContent()
         content.title = "Upcoming Birthday"
-        content.body = "\(profile.name)'s birthday is in a month! Take a look at your ideas."
+        content.body = "\(profile.name)'s birthday is in \(daysBefore) days! Take a look at your ideas."
         content.sound = .default
-        content.userInfo["profileID"] = profile.id.uuidString
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let birthdateString = dateFormatter.string(from: profile.birthdate)
+        content.userInfo["birthdate"] = birthdateString
         
         let dateComponents = calendar.dateComponents([.day, .month, .year], from: notificationDate)
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
@@ -70,44 +74,38 @@ class NotificationsManager {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [profile.id.uuidString])
     }
     
-    //TODO: Implement a way to update all notifications when days before value changes
-//    func updateScheduledNotificationsDaysBefore(newDaysBefore: Int) {
-//        UNUserNotificationCenter.current().getPendingNotificationRequests { [weak self] requests in
-//            var updatedNotifications = [NotificationData]()
-//            print("REQUEST UPDATE -- \(requests.count) requests found")
-//
-//            for request in requests {
-//                print("REQUEST -- \(request.content.userInfo)")
-//                guard let profileID = request.content.userInfo["profileID"] as? String else {
-//                    print("Profile ID not found in request")
-//                    continue
-//                }
-//
-//                guard let profile = self?.fetchProfile(withID: profileID) else {
-//                    print("No profile found for ID: \(profileID)")
-//                    continue
-//                }
-//
-//                guard let newTriggerDate = Calendar.current.date(byAdding: .day, value: -newDaysBefore, to: profile.birthdate) else {
-//                    print("Failed to calculate new trigger date for profile: \(profile.name)")
-//                    continue
-//                }
-//
-//                let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: newTriggerDate)
-//                let newRequestData = NotificationData(id: request.identifier, title: request.content.title, body: request.content.body, dateComponents: dateComponents)
-//                updatedNotifications.append(newRequestData)
-//                print("Updated notification for \(profile.name)")
-//            }
-//
-//            guard !updatedNotifications.isEmpty else {
-//                print("No notifications to update")
-//                return
-//            }
-//
-//            self?.storeNotifications(updatedNotifications)
-//            self?.rescheduleNotifications()
-//        }
-//    }
+    func updateScheduledNotificationsDaysBefore(newDaysBefore: Int) {
+        UNUserNotificationCenter.current().getPendingNotificationRequests { [weak self] requests in
+            var updatedNotifications = [NotificationData]()
+
+            for request in requests {
+                guard let birthdateString = request.content.userInfo["birthdate"] as? String,
+                      let birthdate = self?.parseDate(from: birthdateString) else {
+                    continue
+                }
+
+                guard let newTriggerDate = Calendar.current.date(byAdding: .day, value: -newDaysBefore, to: birthdate) else {
+                    continue
+                }
+
+                let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: newTriggerDate)
+                let newRequestData = NotificationData(id: request.identifier, 
+                                                      title: request.content.title,
+                                                      body: request.content.body,
+                                                      birthday: request.content.userInfo["birthdate"] as! String,
+                                                      dateComponents: dateComponents)
+                
+                updatedNotifications.append(newRequestData)
+            }
+
+            guard !updatedNotifications.isEmpty else {
+                return
+            }
+
+            self?.storeNotifications(updatedNotifications)
+            self?.rescheduleNotifications()
+        }
+    }
 
     
     //MARK: -- Notifications Enable/Diable
@@ -124,10 +122,12 @@ class NotificationsManager {
     }
     
     //MARK: -- Private Helper Methods
-//    func fetchProfile(withID id: String) -> Profile? {
-//        guard  let profileNeeded = profiles.first(where: { $0.id.uuidString == id }) else { return nil }
-//        return profileNeeded
-//    }
+    // Helper function to parse a date string
+    func parseDate(from dateString: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd" // Adjust the format to match how the date is stored
+        return dateFormatter.date(from: dateString)
+    }
     
     private func storeNotifications(_ notifications: [NotificationData]) {
         //TODO: Check for duplicates before saving
@@ -149,7 +149,7 @@ class NotificationsManager {
         content.title = data.title
         content.body = data.body
         content.sound = .default
-        content.userInfo["profileID"] = data.id
+        content.userInfo["birthdate"] = data.birthday
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: data.dateComponents, repeats: true)
         let request = UNNotificationRequest(identifier: data.id, content: content, trigger: trigger)
@@ -169,19 +169,20 @@ class NotificationsManager {
                 return NotificationData(id: request.identifier,
                                         title: request.content.title,
                                         body: request.content.body,
+                                        birthday: request.content.userInfo["birthdate"] as! String,
                                         dateComponents: trigger.dateComponents)
             }
             self?.storeNotifications(notifications)
         }
     }
     
-//    func rescheduleNotifications() {
-//        UNUserNotificationCenter.current().removeAllPendingNotificationRequests() // Clear existing notifications
-//        let updatedNotifications = getSavedNotifications() ?? [] // Retrieve updated notifications
-//        for notification in updatedNotifications {
-//            scheduleNotification(from: notification) // Reschedule with new date
-//        }
-//    }
+    func rescheduleNotifications() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests() // Clear existing notifications
+        let updatedNotifications = getSavedNotifications() ?? [] // Retrieve updated notifications
+        for notification in updatedNotifications {
+            scheduleNotification(from: notification) // Reschedule with new date
+        }
+    }
     
     
     //MARK: Testing ✅
@@ -214,5 +215,6 @@ struct NotificationData: Codable {
     var id: String
     var title: String
     var body: String
+    var birthday: String
     var dateComponents: DateComponents
 }
