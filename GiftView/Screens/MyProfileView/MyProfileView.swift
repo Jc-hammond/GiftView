@@ -11,7 +11,7 @@ struct MyProfileView: View {
     @StateObject var viewModel = MyProfileViewModel()
     
     @State var myProfile: MyProfile
-    
+        
     var body: some View {
         ZStack {
             Color(.background).ignoresSafeArea()
@@ -44,8 +44,83 @@ struct MyProfileView: View {
                         .foregroundStyle(.textBlue)
                         .fontDesign(.rounded)
                         .fontWeight(.semibold)
+                        .padding(.top, 2)
+                }
+                .padding(.bottom, 5)
+                
+                VStack {
+                    Group {
+                        HStack(alignment: .center) {
+                            Text("Wish List")
+                                .font(.title)
+                                .foregroundStyle(.textBlue)
+                                .fontDesign(.rounded)
+                                .fontWeight(.semibold)
+                                .padding(.leading, 15)
+                            
+                            Button {
+                                viewModel.isAddGiftShowing = true
+                            } label: {
+                                Image(systemName: "plus.circle.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 25, height: 25)
+                                    .foregroundStyle(.buttonBlue)
+                            }
+                            
+                            Spacer()
+                            
+                            if let gifts = myProfile.gifts, !gifts.isEmpty {
+                                Button {
+                                    //TODO: Export list of gifts via share sheet
+                                } label: {
+                                    Image(systemName: "square.and.arrow.up")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                        .foregroundStyle(.buttonBlue)
+                                        .padding(.horizontal)
+                                }
+                            }
+                        }
+                    }
+                    
+                    if let gifts = myProfile.gifts {
+                        Picker("", selection: $viewModel.isShowingImageList) {
+                            Text("Images").tag("images")
+                                .foregroundStyle(.textBlue)
+                                .fontDesign(.rounded)
+                            Text("Check List").tag("list")
+                                .foregroundStyle(.textBlue)
+                                .fontDesign(.rounded)
+                        }
+                        .pickerStyle(.segmented)
+                        .padding(.horizontal)
+                        .padding(.bottom)
+                        
+                        if gifts.isEmpty {
+                            ContentUnavailableView {
+                                Label("Add gifts to get started", systemImage: "plus.circle")
+                            }
+                        } else {
+                            if viewModel.isShowingImageList == "images" {
+                                WishGiftsGridView(gifts: gifts) { gift in
+                                    viewModel.selectedGift = gift
+                                }
+                            } else if viewModel.isShowingImageList == "list" {
+                                WishGiftsChecklistView(gifts: gifts)
+                                Spacer()
+                            }
+                        }
+                    }
                 }
             }
+        }
+        .sheet(isPresented: $viewModel.isAddGiftShowing) {
+            AddWishGiftView(myProfile: myProfile)
+        }
+        .sheet(item: $viewModel.selectedGift) { giftToDisplay in
+            WishGiftDetailsView(gift: giftToDisplay)
         }
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {

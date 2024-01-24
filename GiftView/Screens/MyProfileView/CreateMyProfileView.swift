@@ -58,7 +58,7 @@ struct CreateMyProfileView: View {
                                                     birthdate: viewModel.birthdate,
                                                     avatar: viewModel.avatarData,
                                                     modelContext: modelContext)},
-                                        title: "Add Profile",
+                                        title: "Create My Profile",
                                         imageString: "plus.circle",
                                         isDisabled: viewModel.formIsBlank,
                                         shouldDismiss: true)

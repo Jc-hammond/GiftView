@@ -28,3 +28,25 @@ struct GiftsGridView: View {
         }
     }
 }
+
+struct WishGiftsGridView: View {
+    
+    var gifts: [WishGift]
+    let gridItems = [GridItem(), GridItem(), GridItem()]
+    var onGiftPress: (WishGift) -> Void
+    
+    var body: some View {
+        ScrollView {
+            LazyVGrid(columns: gridItems, spacing: 8) {
+                ForEach(gifts.sorted(by: { $0.title < $1.title }), id: \.self) { gift in
+                    Button {
+                        onGiftPress(gift)
+                    } label: {
+                        WishGiftCardView(gift: gift)
+                    }
+                }
+            }
+            .padding(.horizontal, 10)
+        }
+    }
+}

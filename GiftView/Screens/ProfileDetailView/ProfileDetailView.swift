@@ -87,7 +87,16 @@ struct ProfileDetailView: View {
                                 .fontDesign(.rounded)
                                 .fontWeight(.semibold)
                                 .padding(.leading, 15)
-                                .padding(.top, 5)
+                            
+                            Button {
+                                viewModel.isAddGiftShowing = true
+                            } label: {
+                                Image(systemName: "plus.circle.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 25, height: 25)
+                                    .foregroundStyle(.buttonBlue)
+                            }
                             
                             Spacer()
                         }
@@ -111,7 +120,6 @@ struct ProfileDetailView: View {
                     
                     
                     if let gifts = profile.gifts {
-                        
                         Picker("", selection: $viewModel.isShowingImageList) {
                             Text("Images").tag("images")
                                 .foregroundStyle(.textBlue)
@@ -124,29 +132,20 @@ struct ProfileDetailView: View {
                         .padding(.horizontal)
                         .padding(.bottom)
                         
-                        if viewModel.isShowingImageList == "images" {
-                            
-                            if gifts.count < 1 {
-                                ContentUnavailableView {
-                                    Label("Add gifts to get started", systemImage: "plus.circle")
-                                }
-                            } else {
+                        
+                        if gifts.isEmpty{
+                            ContentUnavailableView {
+                                Label("Add gifts to get started", systemImage: "plus.circle")
+                            }
+                        } else {
+                            if viewModel.isShowingImageList == "images" {
                                 GiftsGridView(gifts: gifts) { gift in
                                     viewModel.selectedGift = gift
                                 }
-                            }
-                            
-                        } else if viewModel.isShowingImageList == "list" {
-                            if gifts.count < 1 {
-                                ContentUnavailableView {
-                                    Label("Add gifts to get started", systemImage: "plus.circle")
-                                }
-                            } else {
+                            } else if viewModel.isShowingImageList == "list" {
                                 GiftsChecklistView(gifts: gifts)
-                                
                                 Spacer()
                             }
-                            
                         }
                     }
                 }
@@ -168,13 +167,6 @@ struct ProfileDetailView: View {
                     }
                 }
                 
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        viewModel.isAddGiftShowing = true
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                }
             }
             .navigationBarTitleDisplayMode(.inline)
         }

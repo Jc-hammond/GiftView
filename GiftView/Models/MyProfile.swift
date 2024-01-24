@@ -25,7 +25,7 @@ final class MyProfile: ObservableObject, Identifiable {
             return modifiedName
         }
 
-    init(name: String, birthdate: Date, avatar: Data? = nil, gifts: [Gift] = []) {
+    init(name: String, birthdate: Date, avatar: Data? = nil, gifts: [WishGift] = []) {
         self.id = UUID()
         self.name = name
         self.birthdate = birthdate
@@ -34,5 +34,5 @@ final class MyProfile: ObservableObject, Identifiable {
     }
     
     @Relationship(deleteRule: .cascade)
-    var gifts: [Gift]?
+    var gifts: [WishGift]?
 }
