@@ -77,7 +77,7 @@ struct AddProfileModalView: View {
                             viewModel.datePickerId += 1
                         })
                         
-                        GVPrimaryButton(buttonAction: {viewModel.save(profile: profile, onCommit: {onCommit(profile)})},
+                        GVPrimaryButton(buttonAction: {await viewModel.save(profile: profile, onCommit: {onCommit(profile)})},
                                         title: viewModel.saveButtonTitle,
                                         imageString: viewModel.saveButttonImage,
                                         isDisabled: viewModel.formIsBlank)

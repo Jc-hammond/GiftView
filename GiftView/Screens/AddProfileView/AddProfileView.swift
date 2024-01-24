@@ -56,7 +56,7 @@ struct AddProfileView: View {
                             viewModel.datePickerId += 1
                         })
                         
-                        GVPrimaryButton(buttonAction: {viewModel.addNewProfile(name: viewModel.name,
+                        GVPrimaryButton(buttonAction: { await viewModel.addNewProfile(name: viewModel.name,
                                                                                birthdate: viewModel.birthdate,
                                                                                avatar: viewModel.avatarData,
                                                                                modelContext: modelContext)},

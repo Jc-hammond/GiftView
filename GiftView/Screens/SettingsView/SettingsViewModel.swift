@@ -9,31 +9,38 @@ import Foundation
 import SwiftUI
 
 class SettingsViewModel: ObservableObject {
-    @Published var notificationsOn = false
-    @Published var daysBefore = "30"
+    @AppStorage("notificationsOn") var notificationsOn = false
+    @AppStorage("daysBeforeReminder") var daysBeforeReminder = 30
+    @Published var showAlert = false
+    var profiles: [Profile] = []
     
-    var daysBeforeText: String {
-        if daysBefore.isEmpty {
-            return "0"
-        } else {
-            return daysBefore
+    var daysBeforeReminderString: String {
+        get { String(daysBeforeReminder) }
+        set {
+            if let value = Int(newValue), value > 0 {
+                daysBeforeReminder = value
+            }
         }
     }
     
     func toggleNotifications() {
-        if notificationsOn {
-            NotificationsManager.shared.disableAllNotifications()
-        } else {
-            NotificationsManager.shared.enableAllNotifications()
+        switch notificationsOn {
+        case true: NotificationsManager.shared.enableAllNotifications()
+        case false: NotificationsManager.shared.disableAllNotifications()
         }
     }
     
-    func onSubmitNewDays() {
-        if daysBefore.isEmpty {
-            daysBefore = "30"
-        } else { return }
-    }
-    
+//    func onSubmitNewDays() {
+//        if daysBeforeReminder == 0 {
+//            daysBeforeReminder = 30
+//        }
+//        
+//        NotificationsManager.shared.updateScheduledNotificationsDaysBefore(newDaysBefore: daysBeforeReminder, check: profiles)
+//        
+//        DispatchQueue.main.async {
+//            self.showAlert = true
+//        }
+//    }
 }
 
 struct DismissingKeyboard: ViewModifier {
@@ -41,12 +48,12 @@ struct DismissingKeyboard: ViewModifier {
         content
             .onTapGesture {
                 let keyWindow = UIApplication.shared.connectedScenes
-                        .filter({$0.activationState == .foregroundActive})
-                        .map({$0 as? UIWindowScene})
-                        .compactMap({$0})
-                        .first?.windows
-                        .filter({$0.isKeyWindow}).first
+                    .filter({$0.activationState == .foregroundActive})
+                    .map({$0 as? UIWindowScene})
+                    .compactMap({$0})
+                    .first?.windows
+                    .filter({$0.isKeyWindow}).first
                 keyWindow?.endEditing(true)
-        }
+            }
     }
 }

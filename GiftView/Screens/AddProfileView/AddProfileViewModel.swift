@@ -55,7 +55,7 @@ class AddProfileViewModel: ObservableObject {
         handleErrors()
     }
     
-    func addNewProfile(name: String, birthdate: Date, avatar: Data?, modelContext: ModelContext) {
+    func addNewProfile(name: String, birthdate: Date, avatar: Data?, modelContext: ModelContext) async {
         let newProfile = Profile(name: name, birthdate: birthdate)
         
         if let newAvatar = avatar {
@@ -64,7 +64,7 @@ class AddProfileViewModel: ObservableObject {
         
         handleErrors()
         
-        NotificationsManager.shared.checkForNotificationPermissions(update: newProfile)
+        let _ = await NotificationsManager.shared.checkForNotificationPermissions(update: newProfile)
         
         modelContext.insert(newProfile)
         

@@ -52,7 +52,9 @@ struct ProfileDetailView: View {
                                 .fontWeight(.semibold)
                             
                             Button {
-                                viewModel.toggleNotifications(for: profile)
+                                Task {
+                                    await viewModel.toggleNotifications(for: profile)
+                                }
                             } label: {
                                 Image(systemName: profile.hasNotifications ? "bell.fill" : "bell.slash.fill")
                                     .resizable()
@@ -64,10 +66,10 @@ struct ProfileDetailView: View {
                                     title: Text("Notifications Disabled"),
                                     message: Text("Please allow notifications to receive birthday reminders"),
                                     primaryButton: .default(
-                                        Text("Try Again")
+                                        Text("OK")
                                     ),
-                                    secondaryButton: .destructive(
-                                        Text("Delete"),
+                                    secondaryButton: .cancel(
+                                        Text("Go to Settings"),
                                         action: viewModel.goToSettings
                                     )
                                 )

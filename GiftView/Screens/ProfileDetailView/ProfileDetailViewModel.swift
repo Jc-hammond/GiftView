@@ -14,7 +14,6 @@ class ProfileDetailViewModel: ObservableObject {
     @Published var isShowingImageList: String = "images"
     @Published var isNotificationsAlertShowing = false
     
-    
     func daysUntilNextBirthday(from birthdate: Date) -> Int? {
         let currentDate = Date()
         
@@ -37,61 +36,34 @@ class ProfileDetailViewModel: ObservableObject {
         }
     }
     
-    func toggleNotifications(for profile: Profile) {
-        //check notif permissions
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            
-            //if allowed -> toggle notifications on or off
-            if settings.authorizationStatus == .authorized {
-                DispatchQueue.main.async {
-                    profile.hasNotifications.toggle()
-                }
-                
-                if profile.hasNotifications == true {
-                    //notifications have been toggled ON
-                    self.scheduleBirthdayNotification(for: profile)
-                } else {
-                    //notifications have been toggled OFF
-                    self.removeScheduledNotifications(for: profile)
-                }
-                
+    func toggleNotifications(for profile: Profile) async {
+        // Check for notification permissions asynchronously
+        let authStatus = await NotificationsManager.shared.checkForNotificationPermissions(update: profile)
+        
+        // Handle the case where permission is denied or not determined
+        if authStatus == .denied || authStatus == .notDetermined {
+            // Since this is UI-related, it needs to be run on the main thread
+            DispatchQueue.main.async {
+                self.isNotificationsAlertShowing = true
+                profile.hasNotifications = false
             }
-            //if not allowed -> pop up informing user that notifications need to be enabled for birthday reminders -> go to settings -> don't toggle notifications
+            return
+        }
+
+        // Handle the case where notifications are enabled/disabled based on the profile's setting
+        DispatchQueue.main.async {
+            switch profile.hasNotifications {
+            case true:
+                profile.hasNotifications = false
+                NotificationsManager.shared.removeScheduledNotifications(for: profile)
             
-            if settings.authorizationStatus == .denied || settings.authorizationStatus == .notDetermined {
-                DispatchQueue.main.async {
-                    self.isNotificationsAlertShowing = true
-                }
+            case false: 
+                profile.hasNotifications = true
+                NotificationsManager.shared.scheduleBirthdayNotification(for: profile)
             }
         }
     }
-    
-    func scheduleBirthdayNotification(for profile: Profile) {
-        
-        let calendar = Calendar.current
-        guard let notificationDate = calendar.date(byAdding: .month, value: -1, to: profile.birthdate) else { return }
-        
-        let content = UNMutableNotificationContent()
-        content.title = "Upcoming Birthday"
-        content.body = "\(profile.name)'s birthday is in a month! Take a look at your ideas."
-        content.sound = .default
-        
-        let dateComponents = calendar.dateComponents([.day, .month, .year], from: notificationDate)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        
-        let request = UNNotificationRequest(identifier: profile.id.uuidString, content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Error scheduling notification: \(error.localizedDescription)")
-            }
-        }
-        
-    }
-    
-    func removeScheduledNotifications(for profile: Profile) {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [profile.id.uuidString])
-    }
+
     
     func goToSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else {

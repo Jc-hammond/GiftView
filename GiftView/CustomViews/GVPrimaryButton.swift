@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GVPrimaryButton: View {
     @Environment(\.dismiss) private var dismiss
-    var buttonAction: () -> Void
+    var buttonAction: () async -> Void
     var title: String
     var imageString: String
     var isDisabled: Bool
@@ -17,7 +17,9 @@ struct GVPrimaryButton: View {
     
     var body: some View {
         Button {
-            buttonAction()
+            Task {
+                await buttonAction()
+            }
             if shouldDismiss {
                 dismiss()
             }

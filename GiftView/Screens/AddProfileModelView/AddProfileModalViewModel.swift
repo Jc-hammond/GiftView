@@ -84,8 +84,8 @@ class AddProfileModalViewModel: ObservableObject {
         }
     }
     
-    func save(profile: Profile, onCommit: () -> Void) {
-        NotificationsManager.shared.checkForNotificationPermissions(update: profile)
+    func save(profile: Profile, onCommit: () -> Void) async {
+        let _ = await NotificationsManager.shared.checkForNotificationPermissions(update: profile)
         profile.avatar = avatarData
         onCommit()
         saveButtonTitle = "Saved"
