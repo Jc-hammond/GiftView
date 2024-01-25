@@ -1,28 +1,17 @@
 //
-//  AddProfileModalView.swift
+//  CreateMyProfileView.swift
 //  GiftView
 //
-//  Created by Connor Hammond on 11/6/23.
+//  Created by Connor Hammond on 1/22/24.
 //
 
 import SwiftUI
-import SwiftData
-import PhotosUI
-import Contacts
 
-struct AddProfileModalView: View {
+struct CreateMyProfileView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
     
-    @StateObject var viewModel = AddProfileModalViewModel()
-    
-    @Binding var profile: Profile
-    var onCommit: (Profile) -> Void
-    
-    @State private var profilesToSave: [Profile] = []
-    @State private var isProfilesListShowing = false
-    
-    @State var isPickerPresented = false
+    @StateObject var viewModel = CreateMyProfileViewModel()
     
     var body: some View {
         NavigationStack {
@@ -35,14 +24,6 @@ struct AddProfileModalView: View {
                         photoOnAppear: viewModel.handleErrors,
                         placeholderOnChange: viewModel.handleErrors
                     )
-                    .onAppear(perform: {
-                        if profile.avatar != nil {
-                            DispatchQueue.main.async {
-                                viewModel.avatarData = profile.avatar
-                            }
-                        }
-                    })
-                    .padding(.top, 45)
                     
                     VStack(spacing: 30) {
                         
@@ -52,35 +33,35 @@ struct AddProfileModalView: View {
                             .fontDesign(.rounded)
                             .bold()
                         
+                        
                         GVTextField(title: "Full Name",
                                     prompt: Text("Full Name"),
-                                    text: $profile.name)
-                        .onAppear(perform: {
-                            if !profile.name.isEmpty {
-                                viewModel.name = profile.name
-                            }
-                        })
-                        .onChange(of: profile.name) { _, _ in
-                            viewModel.name = profile.name
+                                    text: $viewModel.name)
+                        .onChange(of: viewModel.name) {
                             viewModel.handleErrors()
                         }
                         
                         GVDatePicker(title: "Birthdate",
-                                     birthdate: $profile.birthdate,
+                                     birthdate: $viewModel.birthdate,
                                      pickerID: viewModel.datePickerId,
                                      onChangeBirthday: {
                             viewModel.updateBirthdate(
-                                newDate: profile.birthdate
+                                newDate: viewModel.birthdate
                             )
                         },
                                      updateID: {
                             viewModel.datePickerId += 1
                         })
                         
-                        GVPrimaryButton(buttonAction: {await viewModel.save(profile: profile, onCommit: {onCommit(profile)})},
-                                        title: viewModel.saveButtonTitle,
-                                        imageString: viewModel.saveButttonImage,
-                                        isDisabled: viewModel.formIsBlank)
+                        GVPrimaryButton(buttonAction: {
+                            viewModel.addNewProfile(name: viewModel.name,
+                                                    birthdate: viewModel.birthdate,
+                                                    avatar: viewModel.avatarData,
+                                                    modelContext: modelContext)},
+                                        title: "Create My Profile",
+                                        imageString: "plus.circle",
+                                        isDisabled: viewModel.formIsBlank,
+                                        shouldDismiss: true)
                         .disabled(viewModel.formIsBlank)
                         
                     }
@@ -93,7 +74,7 @@ struct AddProfileModalView: View {
                 }
                 
             }
-            
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
@@ -105,21 +86,9 @@ struct AddProfileModalView: View {
                             .fontDesign(.rounded)
                             .bold()
                     }
-                    .padding()
-                }
-                
-                ToolbarItem(placement: .confirmationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Done")
-                            .foregroundStyle(viewModel.saveButtonTitle == "Saved" ? .buttonBlue : .clear)
-                            .fontDesign(.rounded)
-                            .bold()
-                    }
-                    .padding()
                 }
             }
+            
             .onDisappear(perform: {
                 if viewModel.formIsBlank {
                     return
@@ -134,4 +103,8 @@ struct AddProfileModalView: View {
         }
         .navigationBarBackButtonHidden()
     }
+}
+
+#Preview {
+    CreateMyProfileView()
 }

@@ -15,9 +15,7 @@ struct AddProfileView: View {
     @Environment(\.dismiss) var dismiss
     
     @StateObject private var viewModel = AddProfileViewModel()
-    
-    @State var isPickerPresented = false
-    
+        
     var body: some View {
         NavigationStack {
             ZStack {
@@ -37,16 +35,6 @@ struct AddProfileView: View {
                             .foregroundStyle(.textBlue)
                             .fontDesign(.rounded)
                             .bold()
-                        
-                        //TODO: Seperate out first and last name everywhere
-                        //GVTextField(title: "First Name",
-                        //                  prompt: Text("First Name"),
-                        //                  text: $viewModel.firstName)
-                        //                    .onChange(of: viewModel.firstName) {
-                        //                       if viewModel.birthdateChanged {
-                        //                           viewModel.handleErrors()
-                        //                      }
-                        //                    }
                         
                         
                         GVTextField(title: "Full Name",
@@ -68,7 +56,7 @@ struct AddProfileView: View {
                             viewModel.datePickerId += 1
                         })
                         
-                        GVPrimaryButton(buttonAction: {viewModel.addNewProfile(name: viewModel.name,
+                        GVPrimaryButton(buttonAction: { await viewModel.addNewProfile(name: viewModel.name,
                                                                                birthdate: viewModel.birthdate,
                                                                                avatar: viewModel.avatarData,
                                                                                modelContext: modelContext)},

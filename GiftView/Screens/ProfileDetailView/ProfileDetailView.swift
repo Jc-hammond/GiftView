@@ -44,14 +44,40 @@ struct ProfileDetailView: View {
                             .fontDesign(.rounded)
                             .bold()
                         
-                        Text(profile.birthdate, format: Date.FormatStyle(date: .abbreviated))
-                            .font(.title2)
-                            .foregroundStyle(.textBlue)
-                            .fontDesign(.rounded)
-                            .fontWeight(.semibold)
-                                                
+                        HStack(alignment: .center) {
+                            Text(profile.birthdate, format: Date.FormatStyle(date: .abbreviated))
+                                .font(.title2)
+                                .foregroundStyle(.textBlue)
+                                .fontDesign(.rounded)
+                                .fontWeight(.semibold)
+                            
+                            Button {
+                                Task {
+                                    await viewModel.toggleNotifications(for: profile)
+                                }
+                            } label: {
+                                Image(systemName: profile.hasNotifications ? "bell.fill" : "bell.slash.fill")
+                                    .resizable()
+                                    .frame(width: 18, height: 18)
+                                    .foregroundStyle(.buttonBlue)
+                            }
+                            .alert(isPresented: $viewModel.isNotificationsAlertShowing) {
+                                Alert(
+                                    title: Text("Notifications Disabled"),
+                                    message: Text("Please allow notifications to receive birthday reminders"),
+                                    primaryButton: .default(
+                                        Text("OK")
+                                    ),
+                                    secondaryButton: .cancel(
+                                        Text("Go to Settings"),
+                                        action: viewModel.goToSettings
+                                    )
+                                )
+                            }
+                        }
+                        .padding(.leading, 10)
+                        
                     }
-                    .padding(.leading, 15)
                 }
                 
                 VStack {
@@ -63,29 +89,15 @@ struct ProfileDetailView: View {
                                 .fontDesign(.rounded)
                                 .fontWeight(.semibold)
                                 .padding(.leading, 15)
-                                .padding(.top, 5)
                             
                             Button {
-                                viewModel.toggleNotifications(for: profile)
+                                viewModel.isAddGiftShowing = true
                             } label: {
-                                Image(systemName: profile.hasNotifications ? "bell.fill" : "bell.slash.fill")
+                                Image(systemName: "plus.circle.fill")
                                     .resizable()
-                                    .frame(width: 18, height: 18)
+                                    .scaledToFit()
+                                    .frame(width: 25, height: 25)
                                     .foregroundStyle(.buttonBlue)
-                                    .padding(.top, 10)
-                            }
-                            .alert(isPresented: $viewModel.isNotificationsAlertShowing) {
-                                Alert(
-                                    title: Text("Notifications Disabled"),
-                                    message: Text("Please allow notifications to receive birthday reminders"),
-                                    primaryButton: .default(
-                                        Text("Try Again")
-                                    ),
-                                    secondaryButton: .destructive(
-                                        Text("Delete"),
-                                        action: viewModel.goToSettings
-                                    )
-                                )
                             }
                             
                             Spacer()
@@ -110,7 +122,6 @@ struct ProfileDetailView: View {
                     
                     
                     if let gifts = profile.gifts {
-                        
                         Picker("", selection: $viewModel.isShowingImageList) {
                             Text("Images").tag("images")
                                 .foregroundStyle(.textBlue)
@@ -123,95 +134,20 @@ struct ProfileDetailView: View {
                         .padding(.horizontal)
                         .padding(.bottom)
                         
-                        if viewModel.isShowingImageList == "images" {
-                            
-                            
-                            if gifts.count < 1 {
-                                ContentUnavailableView {
-                                    Label("Add gifts to get started", systemImage: "plus.circle")
-                                }
-                            } else {
-                                ScrollView {
-                                    LazyVGrid(columns: gridItems, spacing: 8) {
-                                        ForEach(gifts.sorted(by: { $0.title < $1.title }), id: \.self) { gift in
-                                            Button {
-                                                viewModel.selectedGift = gift
-                                            } label: {
-                                                GiftCardView(gift: gift)
-                                            }
-                                        }
-                                        
-                                        Button {
-                                            viewModel.isAddGiftShowing = true
-                                        } label: {
-                                            ZStack {
-                                                RoundedRectangle(cornerRadius: 15)
-                                                    .fill(.buttonBlue)
-                                                    .frame(width: 110, height: 110)
-                                                
-                                                VStack {
-                                                    Image(systemName: "plus")
-                                                        .tint(.white)
-                                                        .fontWeight(.semibold)
-                                                    Text("Add gift")
-                                                        .fontWeight(.semibold)
-                                                        .fontDesign(.rounded)
-                                                        .tint(.white)
-                                                        .padding(.top, 10)
-                                                }
-                                            }
-                                        }
-                                    }
-                                    .padding(.horizontal, 10)
-                                }
+                        
+                        if gifts.isEmpty{
+                            ContentUnavailableView {
+                                Label("Add gifts to get started", systemImage: "plus.circle")
                             }
-                            
-                        } else if viewModel.isShowingImageList == "list" {
-                            if gifts.count < 1 {
-                                ContentUnavailableView {
-                                    Label("Add gifts to get started", systemImage: "plus.circle")
+                        } else {
+                            if viewModel.isShowingImageList == "images" {
+                                GiftsGridView(gifts: gifts) { gift in
+                                    viewModel.selectedGift = gift
                                 }
-                            } else {
-                                List {
-                                    Section(header: Text("Not Purchased")) {
-                                        ForEach(gifts.filter { !$0.isPurchased }, id: \.title) { gift in
-                                            HStack {
-                                                Text(gift.title)
-                                                    .foregroundStyle(.textBlue)
-                                                    .fontDesign(.rounded)
-                                                Spacer()
-                                                Button {
-                                                    gift.isPurchased.toggle()
-                                                } label: {
-                                                    Image(systemName: gift.isPurchased ? "checkmark.circle.fill" : "checkmark.circle")
-                                                        .tint(Color.white)
-                                                }
-                                            }
-                                        }
-                                    }
-                                    
-                                    Section(header: Text("Purchased")) {
-                                        ForEach(gifts.filter { $0.isPurchased }, id: \.title) { gift in
-                                            HStack {
-                                                Text(gift.title)
-                                                    .foregroundStyle(.textBlue)
-                                                    .fontDesign(.rounded)
-                                                Spacer()
-                                                Button {
-                                                    gift.isPurchased.toggle()
-                                                } label: {
-                                                    Image(systemName: gift.isPurchased ? "checkmark.circle.fill" : "checkmark.circle")
-                                                        .tint(Color.white)
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                .listStyle(.plain)
-                                
+                            } else if viewModel.isShowingImageList == "list" {
+                                GiftsChecklistView(gifts: gifts)
                                 Spacer()
                             }
-                            
                         }
                     }
                 }
@@ -230,14 +166,6 @@ struct ProfileDetailView: View {
                     } label: {
                         Text("Edit")
                             .fontDesign(.rounded)
-                    }
-                }
-                
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        viewModel.isAddGiftShowing = true
-                    } label: {
-                        Image(systemName: "plus")
                     }
                 }
                 

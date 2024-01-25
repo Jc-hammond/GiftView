@@ -9,11 +9,8 @@ import Foundation
 import PhotosUI
 import SwiftUI
 import SwiftData
-import UserNotifications
 
 class AddProfileViewModel: ObservableObject {
-    @Published var firstName = ""
-    @Published var lastName = ""
     @Published var name: String = ""
     @Published var birthdate: Date = .now
     @Published var selectedAvatar: PhotosPickerItem?
@@ -27,17 +24,7 @@ class AddProfileViewModel: ObservableObject {
     @Published var saveButtonTitle = "Add Profile"
     @Published var saveButttonImage = "plus.circle"
     
-    var fullName: String {
-        if (lastName.isEmpty) {
-            return firstName
-        } else {
-            return firstName + " " + lastName
-        }
-    }
-    
     var formIsBlank: Bool {
-//        let firstNameBlanke = firstName.isEmpty
-//        let lastNameBlank = lastName.isEmpty
         let nameIsBlank = name.isEmpty
         let dataBlank = avatarData == nil
         let isBlank = nameIsBlank || dataBlank || !birthdateChanged
@@ -59,8 +46,6 @@ class AddProfileViewModel: ObservableObject {
     }
     
     func resetForm() {
-//        firstName = ""
-//        lastName = ""
         name = ""
         birthdate = .now
         birthdateString = ""
@@ -70,7 +55,7 @@ class AddProfileViewModel: ObservableObject {
         handleErrors()
     }
     
-    func addNewProfile(name: String, birthdate: Date, avatar: Data?, modelContext: ModelContext) {
+    func addNewProfile(name: String, birthdate: Date, avatar: Data?, modelContext: ModelContext) async {
         let newProfile = Profile(name: name, birthdate: birthdate)
         
         if let newAvatar = avatar {
@@ -79,7 +64,7 @@ class AddProfileViewModel: ObservableObject {
         
         handleErrors()
         
-        NotificationsManager.shared.checkForNotificationPermissions(update: newProfile)
+        let _ = await NotificationsManager.shared.checkForNotificationPermissions(update: newProfile)
         
         modelContext.insert(newProfile)
         
@@ -116,20 +101,6 @@ class AddProfileViewModel: ObservableObject {
                 self.displayError = true
             }
         }
-        
-//        if avatarData != nil && firstName.isEmpty && !lastName.isEmpty {
-//            DispatchQueue.main.async {
-//                self.errorMessage = "Please add a first name to continue"
-//                self.displayError = true
-//            }
-//        }
-//        
-//        if avatarData != nil && !firstName.isEmpty && lastName.isEmpty {
-//            DispatchQueue.main.async {
-//                self.errorMessage = "Please add a last name to continue"
-//                self.displayError = true
-//            }
-//        }
         
         if !formIsBlank {
             DispatchQueue.main.async {

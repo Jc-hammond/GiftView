@@ -11,6 +11,7 @@ import SwiftData
 struct ProfileCardView: View {
     @Environment(\.modelContext) private var modelContext
     @State var profile: Profile
+    @State private var isDeleteShowing = false
     var width: CGFloat
     var height: CGFloat
     
@@ -46,13 +47,14 @@ struct ProfileCardView: View {
                             LinearGradient(colors: colors, startPoint: .bottom, endPoint: .top)
                                 .frame(width: 115, height: 115)
                                 .cornerRadius(15)
+                            
                         }
                 }
                 HStack {
                     
                     VStack(alignment: .leading) {
                         Spacer()
-                        Text(profile.name)
+                        Text(profile.formattedName)
                             .font(.system(size: 16))
                             .fontDesign(.rounded)
                             .fontWeight(.semibold)
@@ -75,17 +77,9 @@ struct ProfileCardView: View {
                     HStack {
                         HStack {
                             Spacer()
-                            Button(action: {
+                            DeleteProfileButton {
                                 onDelete(profile)
-                            }, label: {
-                                Image(systemName: "minus")
-                                    .frame(width: 30, height: 30)
-                                    .background(Color.errorRed)
-                                    .clipShape(Circle())
-                                    .foregroundColor(.white)
-                            })
-                            .padding(.top, 8)
-                            
+                            }
                         }
                         Spacer()
                     }
@@ -94,6 +88,27 @@ struct ProfileCardView: View {
                 }
             }
         }
+        .rotationEffect(Angle(degrees: isEditable ? Double.random(in: -2...2) : 0))
+        .animation(isEditable ? Animation.easeInOut(duration: 0.15).repeatForever(autoreverses: true) : .default, value: isEditable)
     }
-    
+}
+
+struct DeleteProfileButton: View {
+    var onDelete: () -> Void
+    var body: some View {
+        Button(action: {
+            onDelete()
+        }, label: {
+            Image(systemName: "minus")
+                .frame(width: 30, height: 30)
+                .background(Color.errorRed)
+                .clipShape(Circle())
+                .foregroundColor(.white)
+                .transaction { transaction in
+                    transaction.animation = nil
+                }
+        })
+        .offset(x: 15, y: -15)
+        .padding(.top, 8)
+    }
 }

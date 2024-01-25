@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7105D3AE2B5F680C0007095F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105D3AD2B5F680C0007095F /* SettingsView.swift */; };
+		7105D3B02B5F710C0007095F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105D3AF2B5F710C0007095F /* SettingsViewModel.swift */; };
+		7105D3B22B5F79B50007095F /* MyProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105D3B12B5F79B50007095F /* MyProfile.swift */; };
+		7105D3B52B5F7AAA0007095F /* MyProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105D3B42B5F7AAA0007095F /* MyProfileViewModel.swift */; };
+		7105D3B72B5F7AB40007095F /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105D3B62B5F7AB40007095F /* MyProfileView.swift */; };
+		7105D3B92B5F7EED0007095F /* GiftsChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105D3B82B5F7EED0007095F /* GiftsChecklistView.swift */; };
+		7105D3BB2B5F7FC30007095F /* GiftsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105D3BA2B5F7FC30007095F /* GiftsGridView.swift */; };
+		7105D3BD2B5F80D30007095F /* CreateMyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105D3BC2B5F80D30007095F /* CreateMyProfileView.swift */; };
+		7105D3BF2B5F82000007095F /* CreateMyProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105D3BE2B5F82000007095F /* CreateMyProfileViewModel.swift */; };
+		7105D3C12B608B240007095F /* AddWishGiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105D3C02B608B240007095F /* AddWishGiftView.swift */; };
+		7105D3C32B608BE50007095F /* WishGiftDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7105D3C22B608BE50007095F /* WishGiftDetailsView.swift */; };
 		710ABDD82B22821A00DE83CD /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABDD72B22821A00DE83CD /* EditProfileViewModel.swift */; };
 		71331ECD2B527D510020A810 /* WishKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71331ECC2B527D510020A810 /* WishKitView.swift */; };
 		71331ED02B527DE20020A810 /* WishKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71331ECF2B527DE20020A810 /* WishKit */; };
@@ -45,6 +56,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7105D3AD2B5F680C0007095F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7105D3AF2B5F710C0007095F /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		7105D3B12B5F79B50007095F /* MyProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfile.swift; sourceTree = "<group>"; };
+		7105D3B42B5F7AAA0007095F /* MyProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewModel.swift; sourceTree = "<group>"; };
+		7105D3B62B5F7AB40007095F /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
+		7105D3B82B5F7EED0007095F /* GiftsChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftsChecklistView.swift; sourceTree = "<group>"; };
+		7105D3BA2B5F7FC30007095F /* GiftsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftsGridView.swift; sourceTree = "<group>"; };
+		7105D3BC2B5F80D30007095F /* CreateMyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMyProfileView.swift; sourceTree = "<group>"; };
+		7105D3BE2B5F82000007095F /* CreateMyProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMyProfileViewModel.swift; sourceTree = "<group>"; };
+		7105D3C02B608B240007095F /* AddWishGiftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWishGiftView.swift; sourceTree = "<group>"; };
+		7105D3C22B608BE50007095F /* WishGiftDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishGiftDetailsView.swift; sourceTree = "<group>"; };
 		710ABDD72B22821A00DE83CD /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		71331ECC2B527D510020A810 /* WishKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishKitView.swift; sourceTree = "<group>"; };
 		71331ED22B527EC50020A810 /* MakeAWishTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeAWishTip.swift; sourceTree = "<group>"; };
@@ -96,6 +118,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7105D3AC2B5F67FE0007095F /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				7105D3AD2B5F680C0007095F /* SettingsView.swift */,
+				7105D3AF2B5F710C0007095F /* SettingsViewModel.swift */,
+			);
+			path = SettingsView;
+			sourceTree = "<group>";
+		};
+		7105D3B32B5F7A9E0007095F /* MyProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				7105D3B42B5F7AAA0007095F /* MyProfileViewModel.swift */,
+				7105D3B62B5F7AB40007095F /* MyProfileView.swift */,
+				7105D3BC2B5F80D30007095F /* CreateMyProfileView.swift */,
+				7105D3BE2B5F82000007095F /* CreateMyProfileViewModel.swift */,
+				7105D3C02B608B240007095F /* AddWishGiftView.swift */,
+				7105D3C22B608BE50007095F /* WishGiftDetailsView.swift */,
+			);
+			path = MyProfileView;
+			sourceTree = "<group>";
+		};
 		710ABDD22B2281CE00DE83CD /* ProfilesView */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +250,7 @@
 			children = (
 				714FEC852A899BFF009069B9 /* Profile.swift */,
 				714FEC872A89A66A009069B9 /* Gift.swift */,
+				7105D3B12B5F79B50007095F /* MyProfile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -213,6 +258,8 @@
 		714FEC892A89A905009069B9 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				7105D3B32B5F7A9E0007095F /* MyProfileView */,
+				7105D3AC2B5F67FE0007095F /* SettingsView */,
 				714766432B28FD6900D095DC /* OnboardingView */,
 				710ABDD62B22820400DE83CD /* EditProfileView */,
 				710ABDD32B2281DE00DE83CD /* AddProfileView */,
@@ -238,6 +285,8 @@
 				716D6E3E2B4BA63E000B554F /* GVErrorMessage.swift */,
 				716D6E402B4BA6F9000B554F /* GVPrimaryButton.swift */,
 				71331ECC2B527D510020A810 /* WishKitView.swift */,
+				7105D3B82B5F7EED0007095F /* GiftsChecklistView.swift */,
+				7105D3BA2B5F7FC30007095F /* GiftsGridView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -335,6 +384,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7105D3AE2B5F680C0007095F /* SettingsView.swift in Sources */,
 				717C60342AE1D24C00CA7757 /* SearchBar.swift in Sources */,
 				716D6E412B4BA6F9000B554F /* GVPrimaryButton.swift in Sources */,
 				714FEC772A899BD3009069B9 /* ProfilesView.swift in Sources */,
@@ -344,21 +394,29 @@
 				71EF28652B056DB0004C2DF7 /* ProfilesViewModel.swift in Sources */,
 				717C60372AEF28E600CA7757 /* ContactPicker.swift in Sources */,
 				714FEC8F2A89A962009069B9 /* AddProfileView.swift in Sources */,
+				7105D3B92B5F7EED0007095F /* GiftsChecklistView.swift in Sources */,
+				7105D3C32B608BE50007095F /* WishGiftDetailsView.swift in Sources */,
 				714FEC982A8C26F8009069B9 /* AddGiftView.swift in Sources */,
 				716D6E392B4B993E000B554F /* GVTextField.swift in Sources */,
 				716ACE182B59DD4800583200 /* RequestReviewManager.swift in Sources */,
 				714766452B28FD7400D095DC /* OnboardingView.swift in Sources */,
 				714FEC9C2A8C30FA009069B9 /* GiftDetailsView.swift in Sources */,
 				716D6E3F2B4BA63E000B554F /* GVErrorMessage.swift in Sources */,
+				7105D3B72B5F7AB40007095F /* MyProfileView.swift in Sources */,
 				714766452B28FD7400D095DC /* OnboardingView.swift in Sources */,
 				714FEC9C2A8C30FA009069B9 /* GiftDetailsView.swift in Sources */,
 				714FEC962A8B047F009069B9 /* ProfileCardView.swift in Sources */,
 				715DDC192B227B1200CCF081 /* AddProfileViewModel.swift in Sources */,
 				714FEC882A89A66A009069B9 /* Gift.swift in Sources */,
 				715DDC172B1FECE900CCF081 /* ProfileDetailViewModel.swift in Sources */,
+				7105D3BD2B5F80D30007095F /* CreateMyProfileView.swift in Sources */,
+				7105D3C12B608B240007095F /* AddWishGiftView.swift in Sources */,
 				71EF28632AF9B512004C2DF7 /* AddProfileModalView.swift in Sources */,
 				710ABDD82B22821A00DE83CD /* EditProfileViewModel.swift in Sources */,
+				7105D3BF2B5F82000007095F /* CreateMyProfileViewModel.swift in Sources */,
+				7105D3B22B5F79B50007095F /* MyProfile.swift in Sources */,
 				71331ED32B527EC50020A810 /* MakeAWishTip.swift in Sources */,
+				7105D3B52B5F7AAA0007095F /* MyProfileViewModel.swift in Sources */,
 				714FECA22A93E28A009069B9 /* EditProfileView.swift in Sources */,
 				714FEC9F2A93DA61009069B9 /* Date+Ext.swift in Sources */,
 				714FEC862A899BFF009069B9 /* Profile.swift in Sources */,
@@ -368,7 +426,9 @@
 				716D6E3D2B4BA31F000B554F /* GVDatePicker.swift in Sources */,
 				714766472B29022B00D095DC /* OnboardingViewModel.swift in Sources */,
 				71DEBCED2B092745003BB0AF /* AddProfileModalViewModel.swift in Sources */,
+				7105D3BB2B5F7FC30007095F /* GiftsGridView.swift in Sources */,
 				714FEC932A8B03AF009069B9 /* ProfileDetailView.swift in Sources */,
+				7105D3B02B5F710C0007095F /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

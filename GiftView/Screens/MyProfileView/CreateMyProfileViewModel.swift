@@ -1,17 +1,18 @@
 //
-//  AddProfileModalViewModel.swift
+//  CreateMyProfileViewModel.swift
 //  GiftView
 //
-//  Created by Connor Hammond on 11/18/23.
+//  Created by Connor Hammond on 1/22/24.
 //
 
 import Foundation
 import PhotosUI
 import SwiftUI
+import SwiftData
 
-class AddProfileModalViewModel: ObservableObject {
-    @Published var firstName = ""
-    @Published var lastName = ""
+class CreateMyProfileViewModel: ObservableObject {
+    @AppStorage("firstProfileVisit") var firstVisit: Bool = true
+    
     @Published var name: String = ""
     @Published var birthdate: Date = .now
     @Published var selectedAvatar: PhotosPickerItem?
@@ -22,20 +23,14 @@ class AddProfileModalViewModel: ObservableObject {
     @Published var displayError = false
     @Published var errorMessage = ""
     @Published var datePickerId = 0
-
     @Published var saveButtonTitle = "Add Profile"
     @Published var saveButttonImage = "plus.circle"
     
-    var fullName: String {
-        if (lastName.isEmpty) {
-            return firstName
-        } else {
-            return firstName + " " + lastName
-        }
-    }
-    
     var formIsBlank: Bool {
-        return name.isEmpty || avatarData == nil
+        let nameIsBlank = name.isEmpty
+        let dataBlank = avatarData == nil
+        let isBlank = nameIsBlank || dataBlank || !birthdateChanged
+        return isBlank
     }
     
     func updateBirthdate(newDate: Date) {
@@ -58,7 +53,27 @@ class AddProfileModalViewModel: ObservableObject {
         birthdateString = ""
         selectedAvatar = nil
         avatarData = nil
+        
         handleErrors()
+    }
+    
+    //MARK: ----- CRUD -----
+    func addNewProfile(name: String, birthdate: Date, avatar: Data?, modelContext: ModelContext) {
+        let newProfile = MyProfile(name: name, birthdate: birthdate)
+        
+        if let newAvatar = avatar {
+            newProfile.avatar = newAvatar
+        }
+        
+        handleErrors()
+                
+        modelContext.insert(newProfile)
+        
+        completeFirstVisit()
+    }
+    
+    func completeFirstVisit() {
+        firstVisit = false
     }
     
     func handleErrors() {
@@ -75,21 +90,26 @@ class AddProfileModalViewModel: ObservableObject {
                 self.displayError = true
             }
         }
-                
+        
+        if avatarData != nil && name.isEmpty  {
+            DispatchQueue.main.async {
+                self.errorMessage = "Please add a name to continue"
+                self.displayError = true
+            }
+        }
+        
+        if avatarData != nil && !name.isEmpty && !birthdateChanged {
+            DispatchQueue.main.async {
+                self.errorMessage = "Please add a birthdate to continue"
+                self.displayError = true
+            }
+        }
+        
         if !formIsBlank {
             DispatchQueue.main.async {
                 self.errorMessage = ""
                 self.displayError = false
             }
         }
-    }
-    
-    func save(profile: Profile, onCommit: () -> Void) async {
-        let _ = await NotificationsManager.shared.checkForNotificationPermissions(update: profile)
-        profile.avatar = avatarData
-        onCommit()
-        saveButtonTitle = "Saved"
-        saveButttonImage = "checkmark.circle.fill"
-        NotificationsManager.shared.scheduleBirthdayNotification(for: profile)
     }
 }

@@ -20,7 +20,9 @@ struct ProfilesView: View {
     @EnvironmentObject private var reviewManager: RequestReviewManager
     @Environment(\.modelContext) private var modelContext
     @Environment(\.requestReview) private var requestReview
+    @AppStorage("firstProfileVisit") var firstVisit: Bool = true
     @Query private var profiles: [Profile]
+    @Query private var myProfiles: [MyProfile]
     
     @StateObject private var viewModel = ProfilesViewModel()
     
@@ -71,7 +73,7 @@ struct ProfilesView: View {
                     }
                     
                     Spacer()
-                                        
+                    
                     SearchBar(text: $searchText)
                         .background {
                             RoundedRectangle(cornerRadius: 0)
@@ -89,14 +91,26 @@ struct ProfilesView: View {
                         }
                     
                 }
-                
-                if viewModel.isDeleteModalShowing, let profileToDelete = viewModel.profileToDelete {
-                    ProfileDeleteModal(onDismiss: {viewModel.dismissDeleteModal()}, profile: viewModel.profileToDelete!,
-                                       onDeleteConfirm: {deleteAndDismiss(profile: profileToDelete)
-                    })
-                    
-                    .onDisappear { reviewManager.setCount(count: profiles.count) }
+            }
+            .alert("Delete \(viewModel.profileToDelete?.name ?? "N/A")?", isPresented: $viewModel.isDeleteModalShowing) {
+                Button("Delete", role: .destructive) {
+                    guard let profile = viewModel.profileToDelete else {
+                        viewModel.isDeleteModalShowing = false
+                        isEditable = false
+                        return
+                    }
+                    deleteAndDismiss(profile: profile)
+                    reviewManager.setCount(count: profiles.count)
                 }
+                
+                Button("Cancel", role: .cancel) {
+                    DispatchQueue.main.async {
+                        isEditable = false
+                        viewModel.isDeleteModalShowing = false
+                    }
+                }
+            } message: {
+                Text("You cannot undo this action.")
             }
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $isPickerPresented) {
@@ -135,19 +149,50 @@ struct ProfilesView: View {
                 }
             }
             .toolbar {
-                if !profiles.isEmpty {
+                if !myProfiles.isEmpty {
+                    let myProfile = myProfiles[0]
                     ToolbarItem(placement: .cancellationAction) {
-                        Button {
-                            isEditable.toggle()
+                        NavigationLink {
+                            MyProfileView(myProfile: myProfile)
                         } label: {
-                            Text(isEditable ? "Done" : "Edit")
-                                .fontDesign(.rounded)
-                                .bold()
-                                .foregroundStyle(.buttonBlue)
-                                .opacity(viewModel.isDeleteModalShowing ? 0.4 : 1)
+                            if let avatar = myProfile.avatar {
+                                let uiImage = UIImage(data: avatar)
+                                Image(uiImage: uiImage!)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 40, height: 40)
+                                    .clipShape(Circle())
+                            } else {
+                                Image(systemName: "person.circle.fill")
+                            }
+                        }
+                    }
+                } else {
+                    ToolbarItem(placement: .cancellationAction) {
+                        NavigationLink {
+                            CreateMyProfileView()
+                        } label: {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .frame(width: 40, height: 40)
                         }
                     }
                 }
+                
+                //TODO: implement edit via onLongPress and add Wiggle animation
+//                if !profiles.isEmpty {
+//                    ToolbarItem(placement: .cancellationAction) {
+//                        Button {
+//                            isEditable.toggle()
+//                        } label: {
+//                            Text(isEditable ? "Done" : "Edit")
+//                                .fontDesign(.rounded)
+//                                .bold()
+//                                .foregroundStyle(.buttonBlue)
+//                                .opacity(viewModel.isDeleteModalShowing ? 0.4 : 1)
+//                        }
+//                    }
+//                }
                 
                 
                 ToolbarItem(placement: .principal) {
