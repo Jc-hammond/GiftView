@@ -91,14 +91,26 @@ struct ProfilesView: View {
                         }
                     
                 }
-                
-                if viewModel.isDeleteModalShowing, let profileToDelete = viewModel.profileToDelete {
-                    ProfileDeleteModal(onDismiss: {viewModel.dismissDeleteModal()}, profile: viewModel.profileToDelete!,
-                                       onDeleteConfirm: {deleteAndDismiss(profile: profileToDelete)
-                    })
-                    
-                    .onDisappear { reviewManager.setCount(count: profiles.count) }
+            }
+            .alert("Delete \(viewModel.profileToDelete?.name ?? "N/A")?", isPresented: $viewModel.isDeleteModalShowing) {
+                Button("Delete", role: .destructive) {
+                    guard let profile = viewModel.profileToDelete else {
+                        viewModel.isDeleteModalShowing = false
+                        isEditable = false
+                        return
+                    }
+                    deleteAndDismiss(profile: profile)
+                    reviewManager.setCount(count: profiles.count)
                 }
+                
+                Button("Cancel", role: .cancel) {
+                    DispatchQueue.main.async {
+                        isEditable = false
+                        viewModel.isDeleteModalShowing = false
+                    }
+                }
+            } message: {
+                Text("You cannot undo this action.")
             }
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $isPickerPresented) {

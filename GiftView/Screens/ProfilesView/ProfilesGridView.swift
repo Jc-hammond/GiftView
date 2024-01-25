@@ -26,68 +26,17 @@ struct ProfilesGridView: View {
                             viewModel.prepareToDelete(profile: profile)
                             isEditable = false
                         }
+                        .onLongPressGesture {
+                            withAnimation {
+                                isEditable = true
+                            }
+                        }
                     }
                 }
             }
             .padding(.bottom)
             .padding(.horizontal)
         }
-    }
-}
-
-struct ProfileDeleteModal: View {
-    var onDismiss: () -> Void
-    var profile: Profile
-    var onDeleteConfirm: () -> Void
-    
-    @State var scale = 1.0
-    
-    var body: some View {
-        ZStack {
-            Color.black.opacity(0.4)
-                .ignoresSafeArea()
-            VStack(spacing: 5) {
-                Text("Delete \(profile.name)?")
-                    .bold()
-                    .font(.title2)
-                    .fontDesign(.rounded)
-                    .foregroundStyle(.textBlue)
-                    .padding(.top)
-                Text("You cannot undo this action")
-                    .font(.body)
-                    .fontDesign(.rounded)
-                    .foregroundStyle(.textBlue)
-                
-                Image(systemName: "x.circle")
-                    .resizable()
-                    .frame(width: 40, height: 40)
-                    .foregroundStyle(.errorRed)
-                    .padding(.top)
-                
-                HStack(spacing: 25) {
-                    Button("Delete") {
-                        print("tapped")
-                        onDeleteConfirm()
-                        
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .tint(.errorRed)
-                    .controlSize(.large)
-                    Button("Cancel") {
-                        onDismiss()
-                    }
-                    .buttonStyle(.bordered)
-                    .foregroundStyle(.buttonBlue)
-                    .controlSize(.large)
-                }
-                .padding()
-            }
-            .frame(width: 300, height: 200)
-            .background(Color.white)
-            .cornerRadius(20).shadow(radius: 20)
-            
-        }
-        
     }
 }
 
