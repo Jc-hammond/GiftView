@@ -19,16 +19,29 @@ struct AddGiftView: View {
     
     @State private var giftName: String = ""
     @State private var giftLink: String = ""
+    @State private var errorMessage: String = ""
+    @FocusState private var nameIsFocused: Bool
+    @FocusState private var linkIsFocused: Bool
     
     var body: some View {
         NavigationStack {
             ZStack {
                 Color(.background).ignoresSafeArea()
                 Form {
-                    
                     TextField("Gift Idea", text: $giftName)
+                        .focused($nameIsFocused)
+                        .autocorrectionDisabled()
+                        .onSubmit {
+                            nameIsFocused = false
+                        }
                     
                     TextField("Link", text: $giftLink)
+                        .focused($linkIsFocused)
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.never)
+                        .onSubmit {
+                            linkIsFocused = false
+                        }
                     
                     PhotosPicker(selection: $giftPhoto, matching: .images) {
                         Label("Add photo", systemImage: "camera")
@@ -39,29 +52,51 @@ struct AddGiftView: View {
                         Image(uiImage: uiImage!)
                             .resizable()
                             .scaledToFit()
+                            .onTapGesture {
+                                nameIsFocused = false
+                                linkIsFocused = false
+                            }
                     }
-                    
                 }
                 .navigationTitle("Add a gift")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
-                            addGift()
-                            dismiss()
+                            nameIsFocused = false
+                            linkIsFocused = false
+                            if isValidURL(giftLink) {
+                                addGift()
+                                dismiss()
+                            } else {
+                                errorMessage = "Please enter a valid link."
+                            }
                         } label: {
                             Text("Save")
                         }
                     }
+                    
+                    if errorMessage != "" {
+                        ToolbarItem(placement: .principal) {
+                            GVErrorMessage(message: errorMessage)
+                                .onTapGesture {
+                                    nameIsFocused = false
+                                    linkIsFocused = false
+                                }
+                        }
+                    }
+                    
                 }
             }
         }
-        .presentationDetents([.medium])
+        .presentationDetents([.large])
         .task(id: giftPhoto) {
             if let data = try? await giftPhoto?.loadTransferable(type: Data.self) {
                 giftPhotoData = data
             }
+            nameIsFocused = false
+            linkIsFocused = false
         }
-       
+        
     }
     
     func addGift() {
@@ -69,5 +104,10 @@ struct AddGiftView: View {
         
         modelContext.insert(newGift)
         profile?.gifts?.append(newGift)
+    }
+    
+    func isValidURL (_ urlString: String?) -> Bool {
+        let urlRegEx = "(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+"
+        return NSPredicate(format: "SELF MATCHES %@", urlRegEx).evaluate(with: urlString)
     }
 }

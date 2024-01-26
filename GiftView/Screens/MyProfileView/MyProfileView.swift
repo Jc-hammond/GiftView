@@ -71,16 +71,23 @@ struct MyProfileView: View {
                             Spacer()
                             
                             if let gifts = myProfile.gifts, !gifts.isEmpty {
-                                Button {
-                                    //TODO: Export list of gifts via share sheet
-                                } label: {
-                                    Image(systemName: "square.and.arrow.up")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 25, height: 25)
-                                        .foregroundStyle(.buttonBlue)
-                                        .padding(.horizontal)
-                                }
+                                let image = Image(.invite)
+                                let link = URL(string: "https://apps.apple.com/us/app/giftview/id6474200424")!
+                                
+                                let giftString = createList()
+                                
+                                ShareLink(item: giftString,
+                                          preview: SharePreview(
+                                            Text("Share your wishlist!"),
+                                            image: image)) {
+                                                Image(systemName: "square.and.arrow.up")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 25, height: 25)
+                                                    .foregroundStyle(.buttonBlue)
+                                                    .padding(.horizontal)
+                                                
+                                            }
                             }
                         }
                     }
@@ -130,8 +137,19 @@ struct MyProfileView: View {
                     Image(systemName: "gear")
                         .foregroundStyle(.buttonBlue)
                 }
-
+                
             }
         }
+    }
+    
+    private func createList() -> String {
+        guard let gifts = myProfile.gifts else { return "N/A"}
+        var giftList = "\(myProfile.name) shared their wishlist with you!\n\n"
+        for gift in gifts {
+            guard let link = gift.link else { return "" }
+            giftList.append("\(gift.title) (\(link))\n")
+        }
+        giftList.append("\nDownload GiftView to make your own!\nhttps://apps.apple.com/us/app/giftview/id6474200424")
+        return giftList
     }
 }

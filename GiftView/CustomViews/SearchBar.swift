@@ -41,7 +41,7 @@ struct SearchBar: View {
                 Spacer()
             }
         }
-        
+        .padding(.bottom, 15)
         .padding(.horizontal, 20)
     }
 }
