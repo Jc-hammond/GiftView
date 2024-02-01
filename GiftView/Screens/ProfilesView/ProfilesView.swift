@@ -116,12 +116,15 @@ struct ProfilesView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .always))
                 .onDisappear {
-                    reviewManager.setCount(count: profiles.count)
-                    if reviewManager.canAskForReview() {
-                        requestReview()
+                    if !firstVisit {
+                        reviewManager.setCount(count: profiles.count)
+                        if reviewManager.canAskForReview() {
+                            requestReview()
+                        }
                     }
                 }
             }
+            //TODO: Fix first navigation not working (bounces back)
             .toolbar {
                 if !myProfiles.isEmpty {
                     let myProfile = myProfiles[0]
@@ -144,7 +147,7 @@ struct ProfilesView: View {
                 } else {
                     ToolbarItem(placement: .cancellationAction) {
                         NavigationLink {
-                            CreateMyProfileView()
+                            CreateMyProfileView(path: $path)
                         } label: {
                             Image(systemName: "person.circle.fill")
                                 .resizable()
@@ -162,7 +165,6 @@ struct ProfilesView: View {
                             .fontDesign(.rounded)
                             .bold()
                             .foregroundStyle(.titleText)
-                        
                     }
                 }
                 

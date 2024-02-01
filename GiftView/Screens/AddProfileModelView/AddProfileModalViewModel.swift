@@ -88,8 +88,10 @@ class AddProfileModalViewModel: ObservableObject {
         let _ = await NotificationsManager.shared.checkForNotificationPermissions(update: profile)
         profile.avatar = avatarData
         onCommit()
-        saveButtonTitle = "Saved"
-        saveButttonImage = "checkmark.circle.fill"
+        DispatchQueue.main.async {
+            self.saveButtonTitle = "Saved"
+            self.saveButttonImage = "checkmark.circle.fill"
+        }
         NotificationsManager.shared.scheduleBirthdayNotification(for: profile)
     }
 }
