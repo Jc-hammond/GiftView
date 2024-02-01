@@ -10,27 +10,21 @@ import SwiftUI
 struct ProfilesGridView: View {
     var profiles: [Profile]
     var viewModel: ProfilesViewModel
-    @Binding var isEditable: Bool
     @Binding var searchText: String
     
     let gridItems = [GridItem(), GridItem(), GridItem()]
+    
+    @Binding var path: [Profile]
     
     var body: some View {
         GeometryReader { geo in
             LazyVGrid(columns: gridItems, spacing: 25) {
                 ForEach(searchText.isEmpty ? profiles : profiles.filter { $0.name.contains(searchText) }) { profile in
-                    NavigationLink {
-                        ProfileDetailView(profile: profile)
-                    } label: {
-                        ProfileCardView(profile: profile, width: geo.size.width / 3.5, height: 115, isEditable: $isEditable) { profile in
-                            viewModel.prepareToDelete(profile: profile)
-                            isEditable = false
-                        }
-                        .onLongPressGesture {
-                            withAnimation {
-                                isEditable = true
-                            }
-                        }
+                    NavigationLink(value: profile) {
+                        ProfileCardView(profile: profile, width: geo.size.width / 3.5, height: 115)
+                    }
+                    .navigationDestination(for: Profile.self) { profile in
+                        ProfileDetailView(profile: profile, path: $path)
                     }
                 }
             }
@@ -43,6 +37,6 @@ struct ProfilesGridView: View {
 #Preview {
     ProfilesGridView(profiles: ProfileMockData.shared.profiles,
                      viewModel: ProfilesViewModel(),
-                     isEditable: .constant(false),
-                     searchText: .constant(""))
+                     searchText: .constant(""),
+                     path: .constant([]))
 }

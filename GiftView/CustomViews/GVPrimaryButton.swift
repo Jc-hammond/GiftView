@@ -42,3 +42,27 @@ struct GVPrimaryButton: View {
                     imageString: "checkmark.circle",
                     isDisabled: false)
 }
+
+struct GVDestructiveButton: View {
+    @Environment(\.dismiss) private var dismiss
+    var buttonAction: () -> Void
+    var title: String
+    var imageString: String
+    var isDisabled: Bool
+    
+    var body: some View {
+        Button {
+            buttonAction()
+        } label: {
+            Label(title, systemImage: imageString)
+                .font(.title2)
+                .fontDesign(.rounded)
+                .bold()
+                .padding(EdgeInsets(top: 12, leading: 90, bottom: 12, trailing: 90))
+                .foregroundStyle(.white)
+                .background(isDisabled ? .errorRed.opacity(0.25) : .errorRed)
+                .clipShape(Capsule())
+                .lineLimit(1)
+        }
+    }
+}

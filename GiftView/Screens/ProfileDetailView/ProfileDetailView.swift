@@ -14,8 +14,12 @@ struct ProfileDetailView: View {
     @StateObject var viewModel = ProfileDetailViewModel()
     
     @State var profile: Profile
-    
+                
     let gridItems = [GridItem(), GridItem(), GridItem()]
+    
+    @Binding var path: [Profile]
+    
+    @State private var isDeleteShowing = false
     
     var body: some View {
         ZStack {
@@ -158,11 +162,14 @@ struct ProfileDetailView: View {
             .sheet(item: $viewModel.selectedGift) { giftToDisplay in
                 GiftDetailsView(gift: giftToDisplay)
             }
+            .sheet(isPresented: $isDeleteShowing) {
+                EditProfileView(profile: $profile, path: $path)
+            }
             
             .toolbar {
                 ToolbarItem {
-                    NavigationLink {
-                        EditProfileView(profile: $profile)
+                    Button{
+                       isDeleteShowing = true
                     } label: {
                         Text("Edit")
                             .fontDesign(.rounded)

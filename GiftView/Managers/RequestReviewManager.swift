@@ -36,5 +36,10 @@ class RequestReviewManager: ObservableObject {
         profilesCount = count
     }
     
+    func subtractOne() {
+        profilesCount -= 1
+    }
+
+    
     
 }

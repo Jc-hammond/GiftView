@@ -18,7 +18,7 @@ class ProfilesViewModel: ObservableObject {
     
     @Published var isDeleteModalShowing = false
     @Published var profileToDelete: Profile?
-    
+        
     func createProfilesFrom(contacts: [CNContact]) -> [Profile] {
         let newProfiles = contacts.map { contact -> Profile in
             let name = CNContactFormatter.string(from: contact, style: .fullName) ?? "Unknown"
@@ -63,13 +63,6 @@ class ProfilesViewModel: ObservableObject {
         }
     }
     
-    func prepareToDelete(profile: Profile) {
-        DispatchQueue.main.async {
-            self.isDeleteModalShowing = true
-            
-            self.profileToDelete = profile
-        }
-    }
     
     func dismissDeleteModal() {
         DispatchQueue.main.async {

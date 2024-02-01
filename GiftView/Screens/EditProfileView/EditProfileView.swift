@@ -11,6 +11,7 @@ import PhotosUI
 
 struct EditProfileView: View {
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var reviewManager: RequestReviewManager
     @Environment(\.dismiss) var dismiss
     
     @StateObject var viewModel = EditProfileViewModel()
@@ -21,9 +22,12 @@ struct EditProfileView: View {
     
     @State var isPickerPresented = false
     
+    @Binding var path: [Profile]
+                        
     var body: some View {
         NavigationStack {
-            ZStack {                
+            ZStack {
+                Color(.background).ignoresSafeArea()
                 VStack {
                     HStack {
                         Spacer()
@@ -137,12 +141,30 @@ struct EditProfileView: View {
                         }
                         .disabled(!viewModel.formIsUpdated)
                         
+                        GVDestructiveButton(buttonAction: { viewModel.isDeleteModalShowing = true},
+                                            title: "Delete Profile?",
+                                            imageString: "x.circle",
+                                            isDisabled: false)
+                        
                     }
                     Spacer()
                 }
                 
             }
-            
+            .alert("Delete \(profile.name)?", isPresented: $viewModel.isDeleteModalShowing) {
+                Button("Delete", role: .destructive) {
+                    deleteAndDismiss(profile: profile)
+                    reviewManager.subtractOne()
+                }
+                
+                Button("Cancel", role: .cancel) {
+                    DispatchQueue.main.async {
+                        viewModel.isDeleteModalShowing = false
+                    }
+                }
+            } message: {
+                Text("You cannot undo this action.")
+            }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
@@ -169,5 +191,17 @@ struct EditProfileView: View {
             }
         }
         .navigationBarBackButtonHidden()
+        .onAppear {
+            print(path.count)
+        }
+    }
+    
+    private func deleteAndDismiss(profile: Profile) {
+        DispatchQueue.main.async {
+            modelContext.delete(profile)
+            viewModel.isDeleteModalShowing = false
+        }
+        //Resets navigation back to root view (ProfilesView)
+        path = []
     }
 }
