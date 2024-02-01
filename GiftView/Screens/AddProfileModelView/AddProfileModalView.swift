@@ -57,12 +57,16 @@ struct AddProfileModalView: View {
                                     text: $profile.name)
                         .onAppear(perform: {
                             if !profile.name.isEmpty {
-                                viewModel.name = profile.name
+                                DispatchQueue.main.async {
+                                    viewModel.name = profile.name
+                                }
                             }
                         })
                         .onChange(of: profile.name) { _, _ in
-                            viewModel.name = profile.name
-                            viewModel.handleErrors()
+                            DispatchQueue.main.async {
+                                viewModel.name = profile.name
+                                viewModel.handleErrors()
+                            }
                         }
                         
                         GVDatePicker(title: "Birthdate",

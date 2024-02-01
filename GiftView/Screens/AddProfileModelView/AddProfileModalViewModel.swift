@@ -53,12 +53,12 @@ class AddProfileModalViewModel: ObservableObject {
     }
     
     func resetForm() {
-        name = ""
-        birthdate = .now
-        birthdateString = ""
-        selectedAvatar = nil
-        avatarData = nil
-        handleErrors()
+            name = ""
+            birthdate = .now
+            birthdateString = ""
+            selectedAvatar = nil
+            avatarData = nil
+            handleErrors()
     }
     
     func handleErrors() {

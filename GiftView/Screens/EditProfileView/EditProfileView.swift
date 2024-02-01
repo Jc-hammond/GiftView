@@ -191,9 +191,6 @@ struct EditProfileView: View {
             }
         }
         .navigationBarBackButtonHidden()
-        .onAppear {
-            print(path.count)
-        }
     }
     
     private func deleteAndDismiss(profile: Profile) {

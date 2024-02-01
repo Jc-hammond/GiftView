@@ -12,7 +12,7 @@ struct SettingsView: View {
     @State private var notificationsOn = false
     @StateObject private var viewModel = SettingsViewModel()
     @FocusState private var focusedField: Field?
-
+    
     enum Field: Hashable {
         case myField
     }
@@ -38,6 +38,14 @@ struct SettingsView: View {
                         }
                     }
                 }
+                .modifier(DismissingKeyboard())
+                .listRowBackground(Color.textFieldBackground)
+                
+                Section {
+                    NavigationLink("Suggest a feature ✨") {
+                        WishKitView()
+                    }
+                }
                 .listRowBackground(Color.textFieldBackground)
                 
             }
@@ -59,7 +67,6 @@ struct SettingsView: View {
         .onSubmit(of: .text) {
             viewModel.onSubmitNewDays()
         }
-        .modifier(DismissingKeyboard())
         .toolbar {
             ToolbarItem(placement: .keyboard) {
                 HStack {
