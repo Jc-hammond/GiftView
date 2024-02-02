@@ -19,6 +19,12 @@ class ProfilesViewModel: ObservableObject {
     @Published var isDeleteModalShowing = false
     @Published var profileToDelete: Profile?
         
+    @Published var searchText = ""
+    
+    @Published var isPickerPresented = false
+    
+    @Published var currentProfileIndex = 0
+        
     func createProfilesFrom(contacts: [CNContact]) -> [Profile] {
         let calendar = Calendar.current
         let newProfiles = contacts.map { contact -> Profile in
@@ -78,6 +84,16 @@ class ProfilesViewModel: ObservableObject {
             self.isDeleteModalShowing = false
             
             self.profileToDelete = nil
+        }
+    }
+    
+    func toggleImprtPicker() {
+        isPickerPresented.toggle()
+    }
+    
+    func increaseProfileIndex() {
+        DispatchQueue.main.async {
+            self.currentProfileIndex += 1
         }
     }
 }
