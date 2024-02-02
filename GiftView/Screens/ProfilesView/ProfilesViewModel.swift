@@ -87,7 +87,7 @@ class ProfilesViewModel: ObservableObject {
         }
     }
     
-    func toggleImprtPicker() {
+    func toggleImportPicker() {
         isPickerPresented.toggle()
     }
     

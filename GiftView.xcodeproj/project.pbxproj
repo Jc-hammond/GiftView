@@ -345,7 +345,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					714FEC702A899BD3009069B9 = {
 						CreatedOnToolsVersion = 15.0;
@@ -409,8 +409,6 @@
 				714FEC9C2A8C30FA009069B9 /* GiftDetailsView.swift in Sources */,
 				716D6E3F2B4BA63E000B554F /* GVErrorMessage.swift in Sources */,
 				7105D3B72B5F7AB40007095F /* MyProfileView.swift in Sources */,
-				714766452B28FD7400D095DC /* OnboardingView.swift in Sources */,
-				714FEC9C2A8C30FA009069B9 /* GiftDetailsView.swift in Sources */,
 				71FDCBFA2B6C7B780065E7D9 /* EditProfilePhotoPicker.swift in Sources */,
 				714FEC962A8B047F009069B9 /* ProfileCardView.swift in Sources */,
 				715DDC192B227B1200CCF081 /* AddProfileViewModel.swift in Sources */,

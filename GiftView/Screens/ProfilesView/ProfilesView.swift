@@ -130,6 +130,7 @@ struct ProfilesView: View {
                             Image(systemName: "person.circle.fill")
                                 .resizable()
                                 .frame(width: 40, height: 40)
+                                .foregroundStyle(.buttonBlue)
                         }
                     }
                 }
@@ -164,7 +165,7 @@ struct ProfilesView: View {
                         }
                         
                         Button {
-                            viewModel.toggleImprtPicker()
+                            viewModel.toggleImportPicker()
                         } label: {
                             HStack {
                                 Image(systemName: "plus.circle")
