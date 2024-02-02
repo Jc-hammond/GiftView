@@ -10,6 +10,7 @@ import SwiftData
 
 @Model
 final class Gift {
+    @Attribute(.unique) var id: UUID = UUID()
     @Attribute(.unique) var title: String
     var image: Data?
     var link: String?
@@ -18,7 +19,8 @@ final class Gift {
     @Relationship(deleteRule: .nullify, inverse: \Profile.gifts)
     var profile: Profile?
     
-    init(title: String, image: Data? = nil, link: String? = nil, profile: Profile? = nil) {
+    init(id: UUID = UUID(), title: String, image: Data? = nil, link: String? = nil, profile: Profile? = nil) {
+        self.id = id
         self.title = title
         self.image = image
         self.link = link
@@ -28,6 +30,7 @@ final class Gift {
 
 @Model
 final class WishGift {
+    @Attribute(.unique) var id: UUID = UUID()
     @Attribute(.unique) var title: String
     var image: Data?
     var link: String?
@@ -36,7 +39,8 @@ final class WishGift {
     @Relationship(deleteRule: .nullify, inverse: \MyProfile.gifts)
     var myProfile: MyProfile?
     
-    init(title: String, image: Data? = nil, link: String? = nil, myProfile: MyProfile? = nil) {
+    init(id: UUID = UUID(), title: String, image: Data? = nil, link: String? = nil, myProfile: MyProfile? = nil) {
+        self.id = id
         self.title = title
         self.image = image
         self.link = link

@@ -55,7 +55,7 @@ class AddProfileViewModel: ObservableObject {
         handleErrors()
     }
     
-    func addNewProfile(name: String, birthdate: Date, avatar: Data?, modelContext: ModelContext) async {
+    func addNewProfile(name: String, birthdate: Date, avatar: Data?) async -> Profile {
         let newProfile = Profile(name: name, birthdate: birthdate)
         
         if let newAvatar = avatar {
@@ -65,12 +65,12 @@ class AddProfileViewModel: ObservableObject {
         handleErrors()
         
         let _ = await NotificationsManager.shared.checkForNotificationPermissions(update: newProfile)
-        
-        modelContext.insert(newProfile)
-        
+                
         NotificationsManager.shared.scheduleBirthdayNotification(for: newProfile)
         
         newProfile.hasNotifications = true
+        
+        return newProfile
     }
     
     func handleErrors() {

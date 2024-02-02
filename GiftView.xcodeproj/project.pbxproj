@@ -53,6 +53,8 @@
 		71DEBCED2B092745003BB0AF /* AddProfileModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DEBCEC2B092745003BB0AF /* AddProfileModalViewModel.swift */; };
 		71EF28632AF9B512004C2DF7 /* AddProfileModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EF28622AF9B512004C2DF7 /* AddProfileModalView.swift */; };
 		71EF28652B056DB0004C2DF7 /* ProfilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EF28642B056DB0004C2DF7 /* ProfilesViewModel.swift */; };
+		71FDCBF82B6C7A820065E7D9 /* MyProfileToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FDCBF72B6C7A820065E7D9 /* MyProfileToolbarView.swift */; };
+		71FDCBFA2B6C7B780065E7D9 /* EditProfilePhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FDCBF92B6C7B780065E7D9 /* EditProfilePhotoPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +106,8 @@
 		71DEBCEC2B092745003BB0AF /* AddProfileModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileModalViewModel.swift; sourceTree = "<group>"; };
 		71EF28622AF9B512004C2DF7 /* AddProfileModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileModalView.swift; sourceTree = "<group>"; };
 		71EF28642B056DB0004C2DF7 /* ProfilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewModel.swift; sourceTree = "<group>"; };
+		71FDCBF72B6C7A820065E7D9 /* MyProfileToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileToolbarView.swift; sourceTree = "<group>"; };
+		71FDCBF92B6C7B780065E7D9 /* EditProfilePhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilePhotoPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +291,8 @@
 				71331ECC2B527D510020A810 /* WishKitView.swift */,
 				7105D3B82B5F7EED0007095F /* GiftsChecklistView.swift */,
 				7105D3BA2B5F7FC30007095F /* GiftsGridView.swift */,
+				71FDCBF72B6C7A820065E7D9 /* MyProfileToolbarView.swift */,
+				71FDCBF92B6C7B780065E7D9 /* EditProfilePhotoPicker.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -339,7 +345,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					714FEC702A899BD3009069B9 = {
 						CreatedOnToolsVersion = 15.0;
@@ -403,8 +409,7 @@
 				714FEC9C2A8C30FA009069B9 /* GiftDetailsView.swift in Sources */,
 				716D6E3F2B4BA63E000B554F /* GVErrorMessage.swift in Sources */,
 				7105D3B72B5F7AB40007095F /* MyProfileView.swift in Sources */,
-				714766452B28FD7400D095DC /* OnboardingView.swift in Sources */,
-				714FEC9C2A8C30FA009069B9 /* GiftDetailsView.swift in Sources */,
+				71FDCBFA2B6C7B780065E7D9 /* EditProfilePhotoPicker.swift in Sources */,
 				714FEC962A8B047F009069B9 /* ProfileCardView.swift in Sources */,
 				715DDC192B227B1200CCF081 /* AddProfileViewModel.swift in Sources */,
 				714FEC882A89A66A009069B9 /* Gift.swift in Sources */,
@@ -428,6 +433,7 @@
 				71DEBCED2B092745003BB0AF /* AddProfileModalViewModel.swift in Sources */,
 				7105D3BB2B5F7FC30007095F /* GiftsGridView.swift in Sources */,
 				714FEC932A8B03AF009069B9 /* ProfileDetailView.swift in Sources */,
+				71FDCBF82B6C7A820065E7D9 /* MyProfileToolbarView.swift in Sources */,
 				7105D3B02B5F710C0007095F /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

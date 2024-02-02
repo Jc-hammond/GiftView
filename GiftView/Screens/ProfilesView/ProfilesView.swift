@@ -25,14 +25,6 @@ struct ProfilesView: View {
     @Query private var myProfiles: [MyProfile]
             
     @StateObject private var viewModel = ProfilesViewModel()
-    
-    @State private var isEditSheetShowing = false
-    
-    @State var searchText = ""
-    
-    @State var isPickerPresented = false
-    
-    @State private var currentProfileIndex = 0
             
     let makeAWishTip = MakeAWishTip()
     
@@ -53,7 +45,7 @@ struct ProfilesView: View {
                         if profiles.count > 0 {
                             ProfilesGridView(profiles: profiles,
                                              viewModel: viewModel,
-                                             searchText: $searchText,
+                                             searchText: $viewModel.searchText,
                                              path: $path)
                             .onAppear(perform: {
                                 reviewManager.setCount(count: profiles.count)
@@ -74,7 +66,7 @@ struct ProfilesView: View {
                     
                     Spacer()
                     
-                    SearchBar(text: $searchText)
+                    SearchBar(text: $viewModel.searchText)
                         .background {
                             RoundedRectangle(cornerRadius: 0)
                                 .clipShape(
@@ -93,20 +85,20 @@ struct ProfilesView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $isPickerPresented) {
+            .sheet(isPresented: $viewModel.isPickerPresented) {
                 ContactPickerView { contacts in
                     viewModel.createProfilesAndShowAddView(contacts: contacts)
                 }
             }
             .sheet(isPresented: $viewModel.isProfilesListShowing) {
-                TabView(selection: $currentProfileIndex) {
+                TabView(selection: $viewModel.currentProfileIndex) {
                     ForEach(Array($viewModel.profilesToSave.enumerated()), id: \.element.id) { index, $profile in
                         AddProfileModalView(profile: $profile, onCommit: { modifiedProfile in
                             modelContext.insert(modifiedProfile)
                             
-                            if currentProfileIndex < viewModel.profilesToSave.count - 1 {
+                            if viewModel.currentProfileIndex < viewModel.profilesToSave.count - 1 {
                                 //TODO: Add a delay here or an animation
-                                currentProfileIndex += 1
+                                viewModel.increaseProfileIndex()
                             }
                             viewModel.dismissAddProfileModal(profile: modifiedProfile)
                         })
@@ -124,25 +116,11 @@ struct ProfilesView: View {
                     }
                 }
             }
-            //TODO: Fix first navigation not working (bounces back)
             .toolbar {
                 if !myProfiles.isEmpty {
                     let myProfile = myProfiles[0]
                     ToolbarItem(placement: .cancellationAction) {
-                        NavigationLink {
-                            MyProfileView(myProfile: myProfile)
-                        } label: {
-                            if let avatar = myProfile.avatar {
-                                let uiImage = UIImage(data: avatar)
-                                Image(uiImage: uiImage!)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 40, height: 40)
-                                    .clipShape(Circle())
-                            } else {
-                                Image(systemName: "person.circle.fill")
-                            }
-                        }
+                        MyProfileToolbarView(myProfile: myProfile)
                     }
                 } else {
                     ToolbarItem(placement: .cancellationAction) {
@@ -152,6 +130,7 @@ struct ProfilesView: View {
                             Image(systemName: "person.circle.fill")
                                 .resizable()
                                 .frame(width: 40, height: 40)
+                                .foregroundStyle(.buttonBlue)
                         }
                     }
                 }
@@ -186,7 +165,7 @@ struct ProfilesView: View {
                         }
                         
                         Button {
-                            isPickerPresented = true
+                            viewModel.toggleImportPicker()
                         } label: {
                             HStack {
                                 Image(systemName: "plus.circle")

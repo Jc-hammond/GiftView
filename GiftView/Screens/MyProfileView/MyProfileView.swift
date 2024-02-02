@@ -72,7 +72,6 @@ struct MyProfileView: View {
                             
                             if let gifts = myProfile.gifts, !gifts.isEmpty {
                                 let image = Image(.invite)
-                                let link = URL(string: "https://apps.apple.com/us/app/giftview/id6474200424")!
                                 
                                 let giftString = createList()
                                 
