@@ -265,8 +265,6 @@
 				710ABDD32B2281DE00DE83CD /* AddProfileView */,
 				710ABDD22B2281CE00DE83CD /* ProfilesView */,
 				710ABDD52B2281F600DE83CD /* ProfileDetailView */,
-				714FEC972A8C26F8009069B9 /* AddGiftView.swift */,
-				714FEC9B2A8C30FA009069B9 /* GiftDetailsView.swift */,
 				710ABDD42B2281EA00DE83CD /* AddProfileModelView */,
 			);
 			path = Screens;
@@ -275,6 +273,8 @@
 		714FEC942A8B0465009069B9 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				714FEC9B2A8C30FA009069B9 /* GiftDetailsView.swift */,
+				714FEC972A8C26F8009069B9 /* AddGiftView.swift */,
 				714FEC952A8B047F009069B9 /* ProfileCardView.swift */,
 				714FEC992A8C2DA3009069B9 /* GiftCardView.swift */,
 				717C60332AE1D24C00CA7757 /* SearchBar.swift */,
@@ -577,7 +577,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.4;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ConnorHammond.GiftView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -611,7 +611,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.4;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ConnorHammond.GiftView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

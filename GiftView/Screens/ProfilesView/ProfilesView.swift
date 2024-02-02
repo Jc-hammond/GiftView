@@ -23,25 +23,25 @@ struct ProfilesView: View {
     @AppStorage("firstProfileVisit") var firstVisit: Bool = true
     @Query private var profiles: [Profile]
     @Query private var myProfiles: [MyProfile]
-    
+            
     @StateObject private var viewModel = ProfilesViewModel()
     
     @State private var isEditSheetShowing = false
-    
-    @State var isEditable = false
     
     @State var searchText = ""
     
     @State var isPickerPresented = false
     
     @State private var currentProfileIndex = 0
-    
+            
     let makeAWishTip = MakeAWishTip()
     
     let colors = [Color.orange, Color.orange, Color.yellow, Color.clear]
     
+    @State private var path: [Profile] = []
+        
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ZStack {
                 Color(.background).ignoresSafeArea()
                 
@@ -53,8 +53,8 @@ struct ProfilesView: View {
                         if profiles.count > 0 {
                             ProfilesGridView(profiles: profiles,
                                              viewModel: viewModel,
-                                             isEditable: $isEditable,
-                                             searchText: $searchText)
+                                             searchText: $searchText,
+                                             path: $path)
                             .onAppear(perform: {
                                 reviewManager.setCount(count: profiles.count)
                                 
@@ -92,38 +92,12 @@ struct ProfilesView: View {
                     
                 }
             }
-            .alert("Delete \(viewModel.profileToDelete?.name ?? "N/A")?", isPresented: $viewModel.isDeleteModalShowing) {
-                Button("Delete", role: .destructive) {
-                    guard let profile = viewModel.profileToDelete else {
-                        viewModel.isDeleteModalShowing = false
-                        isEditable = false
-                        return
-                    }
-                    deleteAndDismiss(profile: profile)
-                    reviewManager.setCount(count: profiles.count)
-                }
-                
-                Button("Cancel", role: .cancel) {
-                    DispatchQueue.main.async {
-                        isEditable = false
-                        viewModel.isDeleteModalShowing = false
-                    }
-                }
-            } message: {
-                Text("You cannot undo this action.")
-            }
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $isPickerPresented) {
                 ContactPickerView { contacts in
                     viewModel.createProfilesAndShowAddView(contacts: contacts)
                 }
             }
-            .sheet(isPresented: $viewModel.isEditSheetShowing) {
-                if let profile = viewModel.profileToEdit {
-                    EditProfileView(profile: Binding.constant(profile))
-                }
-            }
-            
             .sheet(isPresented: $viewModel.isProfilesListShowing) {
                 TabView(selection: $currentProfileIndex) {
                     ForEach(Array($viewModel.profilesToSave.enumerated()), id: \.element.id) { index, $profile in
@@ -142,12 +116,15 @@ struct ProfilesView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .always))
                 .onDisappear {
-                    reviewManager.setCount(count: profiles.count)
-                    if reviewManager.canAskForReview() {
-                        requestReview()
+                    if !firstVisit {
+                        reviewManager.setCount(count: profiles.count)
+                        if reviewManager.canAskForReview() {
+                            requestReview()
+                        }
                     }
                 }
             }
+            //TODO: Fix first navigation not working (bounces back)
             .toolbar {
                 if !myProfiles.isEmpty {
                     let myProfile = myProfiles[0]
@@ -170,7 +147,7 @@ struct ProfilesView: View {
                 } else {
                     ToolbarItem(placement: .cancellationAction) {
                         NavigationLink {
-                            CreateMyProfileView()
+                            CreateMyProfileView(path: $path)
                         } label: {
                             Image(systemName: "person.circle.fill")
                                 .resizable()
@@ -178,22 +155,6 @@ struct ProfilesView: View {
                         }
                     }
                 }
-                
-                //TODO: implement edit via onLongPress and add Wiggle animation
-//                if !profiles.isEmpty {
-//                    ToolbarItem(placement: .cancellationAction) {
-//                        Button {
-//                            isEditable.toggle()
-//                        } label: {
-//                            Text(isEditable ? "Done" : "Edit")
-//                                .fontDesign(.rounded)
-//                                .bold()
-//                                .foregroundStyle(.buttonBlue)
-//                                .opacity(viewModel.isDeleteModalShowing ? 0.4 : 1)
-//                        }
-//                    }
-//                }
-                
                 
                 ToolbarItem(placement: .principal) {
                     NavigationLink {
@@ -204,7 +165,6 @@ struct ProfilesView: View {
                             .fontDesign(.rounded)
                             .bold()
                             .foregroundStyle(.titleText)
-                        
                     }
                 }
                 
@@ -258,14 +218,6 @@ struct ProfilesView: View {
     private func deleteItems(offsets: IndexSet) {
         for index in offsets {
             modelContext.delete(profiles[index])
-        }
-    }
-    
-    private func deleteAndDismiss(profile: Profile) {
-        DispatchQueue.main.async {
-            viewModel.profileToDelete = nil
-            viewModel.isDeleteModalShowing = false
-            modelContext.delete(profile)
         }
     }
 }

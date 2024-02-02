@@ -28,6 +28,8 @@ class EditProfileViewModel: ObservableObject {
     @Published var saveButtonTitle = "Save Changes"
     @Published var saveButttonImage = "checkmark.circle"
     
+    @Published var isDeleteModalShowing = false
+    
     var fullName: String {
         if (lastName.isEmpty) {
             return firstName

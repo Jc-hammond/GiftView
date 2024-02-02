@@ -53,12 +53,12 @@ class AddProfileModalViewModel: ObservableObject {
     }
     
     func resetForm() {
-        name = ""
-        birthdate = .now
-        birthdateString = ""
-        selectedAvatar = nil
-        avatarData = nil
-        handleErrors()
+            name = ""
+            birthdate = .now
+            birthdateString = ""
+            selectedAvatar = nil
+            avatarData = nil
+            handleErrors()
     }
     
     func handleErrors() {
@@ -88,8 +88,10 @@ class AddProfileModalViewModel: ObservableObject {
         let _ = await NotificationsManager.shared.checkForNotificationPermissions(update: profile)
         profile.avatar = avatarData
         onCommit()
-        saveButtonTitle = "Saved"
-        saveButttonImage = "checkmark.circle.fill"
+        DispatchQueue.main.async {
+            self.saveButtonTitle = "Saved"
+            self.saveButttonImage = "checkmark.circle.fill"
+        }
         NotificationsManager.shared.scheduleBirthdayNotification(for: profile)
     }
 }

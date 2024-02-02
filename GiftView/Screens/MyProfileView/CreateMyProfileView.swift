@@ -13,98 +13,100 @@ struct CreateMyProfileView: View {
     
     @StateObject var viewModel = CreateMyProfileViewModel()
     
+    @Binding var path: [Profile]
+    
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color(.background).ignoresSafeArea()
-                VStack {
-                    GVPhotoPicker(
-                        photoSelection: $viewModel.selectedAvatar,
-                        avatarData: viewModel.avatarData,
-                        photoOnAppear: viewModel.handleErrors,
-                        placeholderOnChange: viewModel.handleErrors
-                    )
+        ZStack {
+            Color(.background).ignoresSafeArea()
+            VStack {
+                GVPhotoPicker(
+                    photoSelection: $viewModel.selectedAvatar,
+                    avatarData: viewModel.avatarData,
+                    photoOnAppear: viewModel.handleErrors,
+                    placeholderOnChange: viewModel.handleErrors
+                )
+                
+                VStack(spacing: 30) {
                     
-                    VStack(spacing: 30) {
-                        
-                        Text("Create Profile")
-                            .font(.title)
-                            .foregroundStyle(.textBlue)
-                            .fontDesign(.rounded)
-                            .bold()
-                        
-                        
-                        GVTextField(title: "Full Name",
-                                    prompt: Text("Full Name"),
-                                    text: $viewModel.name)
-                        .onChange(of: viewModel.name) {
-                            viewModel.handleErrors()
-                        }
-                        
-                        GVDatePicker(title: "Birthdate",
-                                     birthdate: $viewModel.birthdate,
-                                     pickerID: viewModel.datePickerId,
-                                     onChangeBirthday: {
-                            viewModel.updateBirthdate(
-                                newDate: viewModel.birthdate
-                            )
-                        },
-                                     updateID: {
-                            viewModel.datePickerId += 1
-                        })
-                        
-                        GVPrimaryButton(buttonAction: {
-                            viewModel.addNewProfile(name: viewModel.name,
-                                                    birthdate: viewModel.birthdate,
-                                                    avatar: viewModel.avatarData,
-                                                    modelContext: modelContext)},
-                                        title: "Create My Profile",
-                                        imageString: "plus.circle",
-                                        isDisabled: viewModel.formIsBlank,
-                                        shouldDismiss: true)
-                        .disabled(viewModel.formIsBlank)
-                        
+                    Text("Create Profile")
+                        .font(.title)
+                        .foregroundStyle(.textBlue)
+                        .fontDesign(.rounded)
+                        .bold()
+                    
+                    
+                    GVTextField(title: "Full Name",
+                                prompt: Text("Full Name"),
+                                text: $viewModel.name)
+                    .onChange(of: viewModel.name) {
+                        viewModel.handleErrors()
                     }
                     
-                    if viewModel.displayError {
-                        GVErrorMessage(message: viewModel.errorMessage)
-                    }
+                    GVDatePicker(title: "Birthdate",
+                                 birthdate: $viewModel.birthdate,
+                                 pickerID: viewModel.datePickerId,
+                                 onChangeBirthday: {
+                        viewModel.updateBirthdate(
+                            newDate: viewModel.birthdate
+                        )
+                    },
+                                 updateID: {
+                        viewModel.datePickerId += 1
+                    })
                     
-                    Spacer()
+                    GVSecondaryButton(buttonAction: {
+                        viewModel.addNewProfile(name: viewModel.name,
+                                                birthdate: viewModel.birthdate,
+                                                avatar: viewModel.avatarData,
+                                                modelContext: modelContext)},
+                                      title: "Create My Profile",
+                                      imageString: "plus.circle",
+                                      isDisabled: viewModel.formIsBlank,
+                                      shouldDismiss: true)
+                    .disabled(viewModel.formIsBlank)
+                    
                 }
                 
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        viewModel.resetForm()
-                        dismiss()
-                    } label: {
-                        Text("Cancel")
-                            .foregroundStyle(.buttonBlue)
-                            .fontDesign(.rounded)
-                            .bold()
-                    }
+                if viewModel.displayError {
+                    GVErrorMessage(message: viewModel.errorMessage)
                 }
+                
+                Spacer()
             }
             
-            .onDisappear(perform: {
-                if viewModel.formIsBlank {
-                    return
-                } else {
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
                     viewModel.resetForm()
-                    
+                    dismiss()
+                } label: {
+                    Text("Cancel")
+                        .foregroundStyle(.buttonBlue)
+                        .fontDesign(.rounded)
+                        .bold()
                 }
-            })
-            .task(id: viewModel.selectedAvatar) {
-                await viewModel.convertPhotoToData()
             }
+        }
+        .onAppear(perform: {
+            print(path)
+        })
+        .onDisappear(perform: {
+            if viewModel.formIsBlank {
+                return
+            } else {
+                viewModel.resetForm()
+                
+            }
+        })
+        .task(id: viewModel.selectedAvatar) {
+            await viewModel.convertPhotoToData()
         }
         .navigationBarBackButtonHidden()
     }
 }
 
 #Preview {
-    CreateMyProfileView()
+    CreateMyProfileView(path: .constant([]))
 }

@@ -1,19 +1,19 @@
 //
-//  AddWishgiftView.swift
+//  AddGiftView.swift
 //  GiftView
 //
-//  Created by Connor Hammond on 1/23/24.
+//  Created by Connor Hammond on 8/15/23.
 //
 
 import SwiftUI
 import PhotosUI
 import SwiftData
 
-struct AddWishGiftView: View {
+struct AddGiftView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     
-    @State var myProfile: MyProfile?
+    @State var profile: Profile?
     @State private var giftPhoto: PhotosPickerItem?
     @State private var giftPhotoData: Data?
     
@@ -100,18 +100,14 @@ struct AddWishGiftView: View {
     }
     
     func addGift() {
-        let newGift = WishGift(title: giftName,image: giftPhotoData, link: giftLink, myProfile: myProfile)
+        let newGift = Gift(title: giftName,image: giftPhotoData, link: giftLink, profile: profile)
         
         modelContext.insert(newGift)
-        myProfile?.gifts?.append(newGift)
+        profile?.gifts?.append(newGift)
     }
     
     func isValidURL (_ urlString: String?) -> Bool {
         let urlRegEx = "(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+"
         return NSPredicate(format: "SELF MATCHES %@", urlRegEx).evaluate(with: urlString)
     }
-}
-
-#Preview {
-    AddWishGiftView()
 }
