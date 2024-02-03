@@ -38,15 +38,17 @@ struct SettingsView: View {
                         }
                     }
                 }
-                .modifier(DismissingKeyboard())
+                .dismissingKeyboardIfNeeded()
                 .listRowBackground(Color.textFieldBackground)
                 
+#if os(iOS)
                 Section {
                     NavigationLink("Suggest a feature ✨") {
                         WishKitView()
                     }
                 }
                 .listRowBackground(Color.textFieldBackground)
+#endif
                 
             }
             .scrollContentBackground(.hidden)
@@ -68,7 +70,8 @@ struct SettingsView: View {
             viewModel.onSubmitNewDays()
         }
         .toolbar {
-            ToolbarItem(placement: .keyboard) {
+#if os(iOS)
+            ToolbarItem(Wplacement: .keyboard) {
                 HStack {
                     Spacer()
                     Button("Done") {
@@ -77,6 +80,7 @@ struct SettingsView: View {
                     }
                 }
             }
+#endif
         }
     }
 }

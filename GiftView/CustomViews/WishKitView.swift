@@ -6,11 +6,19 @@
 //
 
 import SwiftUI
+#if canImport(WishKit) && os(iOS)
 import WishKit
+#endif
 
 struct WishKitView: View {
     var body: some View {
+#if os(iOS)
         WishKit.view
+#endif
+        
+#if os(visionOS)
+        EmptyView()
+#endif
     }
 }
 

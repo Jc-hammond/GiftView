@@ -10,7 +10,13 @@ import SwiftUI
 struct OnboardingView: View {
     @AppStorage("isOnboarding") var isOnboarding: Bool?
     @StateObject var viewModel = OnboardingViewModel()
+    #if os(iOS)
     @State private var screenHeight = UIScreen.main.bounds.height
+    #endif
+    
+    #if os(visionOS)
+    @State private var screenHeight = CGFloat(100)
+    #endif
     
     var body: some View {
         ZStack {

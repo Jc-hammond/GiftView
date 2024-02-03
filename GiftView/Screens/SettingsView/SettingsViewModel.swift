@@ -43,6 +43,7 @@ class SettingsViewModel: ObservableObject {
     }
 }
 
+@available(iOS 17, *)
 struct DismissingKeyboard: ViewModifier {
     func body(content: Content) -> some View {
         content

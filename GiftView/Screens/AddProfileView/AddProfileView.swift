@@ -76,8 +76,9 @@ struct AddProfileView: View {
                 Spacer()
             }
             
-        }.navigationBarTitleDisplayMode(.inline)
-            .modifier(DismissingKeyboard())
+        }
+            .navigationBarTitleDisplayMode(.inline)
+            .dismissingKeyboardIfNeeded()
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button {

@@ -97,7 +97,7 @@ struct AddProfileModalView: View {
                 }
                 
             }
-            .modifier(DismissingKeyboard())
+            .dismissingKeyboardIfNeeded()
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button {

@@ -38,8 +38,10 @@ struct ProfilesView: View {
                 Color(.background).ignoresSafeArea()
                 
                 VStack {
+                    #if os(iOS)
                     TipView(makeAWishTip, arrowEdge: .top)
                         .padding(.horizontal)
+                    #endif
                     
                     ScrollView {
                         if profiles.count > 0 {
@@ -137,7 +139,9 @@ struct ProfilesView: View {
                 
                 ToolbarItem(placement: .principal) {
                     NavigationLink {
+                        #if os(iOS)
                         WishKitView()
+                        #endif
                     } label: {
                         Text("GiftView")
                             .font(.largeTitle)
